@@ -8,6 +8,7 @@ import XCTest
 import ProcedureKit
 import TestingProcedureKit
 @testable import ProcedureKitMobile
+#if canImport(UIKit)
 
 class TestableUIApplication: BackgroundTaskApplicationProtocol {
 
@@ -136,3 +137,5 @@ class TestableUIApplication: BackgroundTaskApplicationProtocol {
         NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: self)
     }
 }
+
+#endif

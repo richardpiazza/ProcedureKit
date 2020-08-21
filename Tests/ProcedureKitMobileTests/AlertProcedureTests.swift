@@ -8,6 +8,8 @@ import XCTest
 import ProcedureKit
 import TestingProcedureKit
 @testable import ProcedureKitMobile
+#if canImport(UIKit)
+import UIKit
 
 class AlertProcedureTests: ProcedureKitTestCase {
 
@@ -78,3 +80,5 @@ class AlertProcedureTests: ProcedureKitTestCase {
         PKAssertProcedureFinished(alert)
     }
 }
+
+#endif

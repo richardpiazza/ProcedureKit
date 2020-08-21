@@ -8,6 +8,8 @@ import XCTest
 import ProcedureKit
 import TestingProcedureKit
 @testable import ProcedureKitMobile
+#if canImport(UIKit)
+import UIKit
 
 class TestablePresentingController: NSObject, PresentingViewController {
     typealias CheckBlockType = (UIViewController) -> Void
@@ -115,3 +117,5 @@ class UIProcedureTests: ProcedureKitTestCase {
         PKAssertProcedureFinished(ui)
     }
 }
+
+#endif

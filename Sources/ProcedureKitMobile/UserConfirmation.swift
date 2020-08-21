@@ -5,6 +5,7 @@
 //
 
 import Foundation
+#if canImport(UIKit)
 import UIKit
 
 
@@ -74,3 +75,5 @@ public class UserConfirmationCondition: Condition {
         completion(result)
     }
 }
+
+#endif

@@ -5,6 +5,7 @@
 //
 
 import Foundation
+#if canImport(UIKit)
 import UIKit
 
 /**
@@ -203,4 +204,4 @@ open class AlertProcedure: Procedure {
     }
 }
 
-
+#endif

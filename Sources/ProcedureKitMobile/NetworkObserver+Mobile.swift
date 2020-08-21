@@ -5,6 +5,7 @@
 //
 
 import Foundation
+#if canImport(UIKit)
 import UIKit
 
 extension UIApplication: NetworkActivityIndicatorProtocol { }
@@ -40,3 +41,5 @@ public extension NetworkObserver {
         self.init(controller: NetworkActivityController.shared)
     }
 }
+
+#endif

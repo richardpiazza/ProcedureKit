@@ -8,6 +8,7 @@ import XCTest
 import ProcedureKit
 import TestingProcedureKit
 @testable import ProcedureKitMobile
+#if canImport(UIKit)
 
 class BackgroundObserverTests: ProcedureKitTestCase {
 
@@ -339,3 +340,5 @@ class BackgroundObserverTests: ProcedureKitTestCase {
         XCTAssertEqual(testableApplication.backgroundTasks[0].2, .ended)
     }
 }
+
+#endif
