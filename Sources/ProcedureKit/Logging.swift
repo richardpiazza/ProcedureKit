@@ -6,7 +6,9 @@
 
 import Foundation
 import Dispatch
+#if canImport(os)
 import os
+#endif
 
 internal struct CurrentProcessInfo {
 
@@ -284,11 +286,12 @@ extension Log: LogSettings {
         set { channel.formatter = newValue }
     }
 
+    #if canImport(os)
     @available(iOS 10.0, iOSApplicationExtension 10.0, tvOS 10.0, tvOSApplicationExtension 10.0, OSX 10.12, OSXApplicationExtension 10.12, *)
     public static func setWriterUsingOSLog(_ log: OSLog) {
         writer = Log.Writers.OSLogWriter(log: log)
     }
-
+    #endif
 }
 
 // MARK: - Log Channel
@@ -410,21 +413,29 @@ public extension Log {
     struct Writers {
 
         public static let standard: LogWriter = {
+            #if canImport(os)
             if #available(iOS 10.0, iOSApplicationExtension 10.0, tvOS 10.0, tvOSApplicationExtension 10.0, OSX 10.12, OSXApplicationExtension 10.12, *) {
                 return OSLogWriter(log: .procedure)
             }
             else {
                 return PrintLogWriter()
             }
+            #else
+            return PrintLogWriter()
+            #endif
         }()
 
         public static let system: LogWriter = {
+            #if canImport(os)
             if #available(iOS 10.0, iOSApplicationExtension 10.0, tvOS 10.0, tvOSApplicationExtension 10.0, OSX 10.12, OSXApplicationExtension 10.12, *) {
                 return Log.Writers.OSLogWriter(log: .procedure)
             }
             else {
                 return Log.Writers.PrintLogWriter()
             }
+            #else
+            return Log.Writers.PrintLogWriter()
+            #endif
         }()
     }
 }
@@ -519,7 +530,7 @@ extension Log.Severity: CustomStringConvertible {
 
 
 // MARK: - OSLog Writer
-
+#if canImport(os)
 @available(iOS 10.0, iOSApplicationExtension 10.0, tvOS 10.0, tvOSApplicationExtension 10.0, OSX 10.12, OSXApplicationExtension 10.12, *)
 public extension Log.Severity {
 
@@ -559,6 +570,7 @@ internal extension OSLog {
 
     static let procedure = OSLog(subsystem: "run.kit.procedure", category: "ProcedureKit")
 }
+#endif
 
 // MARK: - Print Log Writer
 extension Log.Writers {

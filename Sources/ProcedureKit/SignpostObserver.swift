@@ -5,6 +5,7 @@
 //
 
 import Foundation
+#if canImport(os)
 import os
 
 @available(iOS 12.0, tvOS 12.0, watchOS 5.0, OSX 10.14, *)
@@ -36,3 +37,5 @@ extension SignpostObserver: ProcedureObserver {
         os_signpost(.end, log: log, name: "Execution", signpostID: signpostID(for: procedure), "Procedure name: %{public}s, status: %{public}s", procedure.procedureName, procedure.status.rawValue)
     }
 }
+
+#endif

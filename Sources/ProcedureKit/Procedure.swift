@@ -8,7 +8,9 @@
 // swiftlint:disable type_body_length
 
 import Foundation
+#if canImport(os)
 import os
+#endif
 
 internal struct ProcedureKit {
 
@@ -56,6 +58,7 @@ internal struct ProcedureKit {
         }
     }
 
+    #if canImport(os)
     @available(iOS 12.0, tvOS 12.0, watchOS 5.0, OSX 10.14, *)
     internal struct Signposts {
 
@@ -63,6 +66,7 @@ internal struct ProcedureKit {
             return OSLog(subsystem: "run.kit.procedure", category: "ProcedureKit")
         }()
     }
+    #endif
 
     private init() { }
 }
