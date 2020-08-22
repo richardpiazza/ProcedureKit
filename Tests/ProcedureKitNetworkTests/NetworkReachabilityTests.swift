@@ -5,10 +5,11 @@
 //
 
 import XCTest
-import SystemConfiguration
 import ProcedureKit
 import TestingProcedureKit
 @testable import ProcedureKitNetwork
+#if canImport(SystemConfiguration)
+import SystemConfiguration
 
 class ReachabilityManagerTests: ProcedureKitTestCase {
 
@@ -96,3 +97,5 @@ class DeviceReachabilityTests: XCTestCase, NetworkReachabilityDelegate {
         XCTAssertNotNil(delegateDidReceiveFlags)
     }
 }
+
+#endif

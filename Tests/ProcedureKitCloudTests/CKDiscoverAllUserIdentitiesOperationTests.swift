@@ -4,13 +4,12 @@
 //  Copyright © 2015-2018 ProcedureKit. All rights reserved.
 //
 
-#if !os(tvOS)
-
 import XCTest
-import CloudKit
 import ProcedureKit
 import TestingProcedureKit
 @testable import ProcedureKitCloud
+#if canImport(CloudKit) && !os(tvOS)
+import CloudKit
 
 class TestCKDiscoverAllUserIdentitiesOperation: TestCKOperation, CKDiscoverAllUserIdentitiesOperationProtocol, AssociatedErrorProtocol {
     typealias AssociatedError = PKCKError

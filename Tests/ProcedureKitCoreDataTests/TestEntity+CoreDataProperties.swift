@@ -5,8 +5,8 @@
 //
 
 import Foundation
+#if canImport(CoreData)
 import CoreData
-
 
 extension TestEntity {
 
@@ -18,3 +18,5 @@ extension TestEntity {
     @NSManaged public var name: String?
 
 }
+
+#endif

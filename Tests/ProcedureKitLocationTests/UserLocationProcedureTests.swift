@@ -5,11 +5,12 @@
 //
 
 import XCTest
-import CoreLocation
-import MapKit
 import ProcedureKit
 import TestingProcedureKit
 @testable import ProcedureKitLocation
+#if canImport(CoreLocation) && canImport(MapKit)
+import CoreLocation
+import MapKit
 
 class UserLocationProcedureTests: LocationProcedureTestCase {
 
@@ -82,4 +83,4 @@ class UserLocationProcedureTests: LocationProcedureTestCase {
     }
 }
 
-
+#endif

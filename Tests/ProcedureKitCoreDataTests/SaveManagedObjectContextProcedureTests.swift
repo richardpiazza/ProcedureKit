@@ -5,10 +5,11 @@
 //
 
 import XCTest
-import CoreData
 import ProcedureKit
 import TestingProcedureKit
 @testable import ProcedureKitCoreData
+#if canImport(CoreData)
+import CoreData
 
 final class SaveManagedObjectContextProcedureTests: ProcedureKitCoreDataTestCase {
 
@@ -41,3 +42,4 @@ final class SaveManagedObjectContextProcedureTests: ProcedureKitCoreDataTestCase
     }
 }
 
+#endif

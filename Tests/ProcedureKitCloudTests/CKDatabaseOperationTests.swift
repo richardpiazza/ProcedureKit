@@ -8,6 +8,7 @@ import XCTest
 import ProcedureKit
 import TestingProcedureKit
 @testable import ProcedureKitCloud
+#if canImport(CloudKit)
 
 class TestCKDatabaseOperation: TestCKOperation, CKDatabaseOperationProtocol, CKPreviousServerChangeToken, CKResultsLimit, CKMoreComing, CKDesiredKeys {
     typealias Database = String
@@ -72,3 +73,5 @@ class CKDatabaseOperationTests: CKProcedureTestCase {
         XCTAssertEqual(target.desiredKeys ?? [], keys)
     }
 }
+
+#endif

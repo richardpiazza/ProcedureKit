@@ -5,10 +5,11 @@
 //
 
 import XCTest
-import CloudKit
 import ProcedureKit
 import TestingProcedureKit
 @testable import ProcedureKitCloud
+#if canImport(CloudKit)
+import CloudKit
 
 class TestCKFetchShareParticipantsOperation: TestCKOperation, CKFetchShareParticipantsOperationProtocol, AssociatedErrorProtocol {
     typealias AssociatedError = PKCKError
@@ -225,3 +226,5 @@ class CloudKitProcedureFetchShareParticipantsOperationTests: CKProcedureTestCase
     }
     
 }
+
+#endif

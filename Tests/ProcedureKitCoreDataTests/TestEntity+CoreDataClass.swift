@@ -5,9 +5,12 @@
 //
 
 import Foundation
+#if canImport(CoreData)
 import CoreData
 
 @objc(TestEntity)
 public class TestEntity: NSManagedObject {
 
 }
+
+#endif

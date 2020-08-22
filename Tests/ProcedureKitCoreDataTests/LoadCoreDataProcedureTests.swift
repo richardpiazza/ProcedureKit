@@ -8,6 +8,7 @@ import XCTest
 import ProcedureKit
 import TestingProcedureKit
 @testable import ProcedureKitCoreData
+#if canImport(CoreData)
 
 final class LoadCoreDataProcedureTests: ProcedureKitCoreDataTestCase {
 
@@ -23,3 +24,5 @@ final class LoadCoreDataProcedureTests: ProcedureKitCoreDataTestCase {
         }
     }
 }
+
+#endif

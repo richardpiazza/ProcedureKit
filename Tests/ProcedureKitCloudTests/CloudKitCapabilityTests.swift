@@ -8,6 +8,8 @@ import XCTest
 import ProcedureKit
 import TestingProcedureKit
 @testable import ProcedureKitCloud
+#if canImport(CloudKit)
+import CloudKit
 
 class CloudKitCapabilityTests: ProcedureKitTestCase {
 
@@ -172,3 +174,4 @@ class CloudKitStatusTests: XCTestCase {
     }
 }
 
+#endif

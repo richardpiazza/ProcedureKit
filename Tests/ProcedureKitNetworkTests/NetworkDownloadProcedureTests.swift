@@ -7,6 +7,9 @@ import XCTest
 import ProcedureKit
 import TestingProcedureKit
 @testable import ProcedureKitNetwork
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 class NetworkDownloadProcedureTests: ProcedureKitTestCase {
 

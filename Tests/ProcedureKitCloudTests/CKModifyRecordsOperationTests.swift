@@ -5,10 +5,11 @@
 //
 
 import XCTest
-import CloudKit
 import ProcedureKit
 import TestingProcedureKit
 @testable import ProcedureKitCloud
+#if canImport(CloudKit)
+import CloudKit
 
 class TestCKModifyRecordsOperation: TestCKDatabaseOperation, CKModifyRecordsOperationProtocol, AssociatedErrorProtocol {
     typealias AssociatedError = ModifyRecordsError<Record, RecordID>
@@ -338,3 +339,4 @@ class CloudKitProcedureModifyRecordsOperationTests: CKProcedureTestCase {
     
 }
 
+#endif

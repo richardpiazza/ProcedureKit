@@ -5,9 +5,10 @@
 //
 
 import XCTest
-import SystemConfiguration
 @testable import ProcedureKit
 import TestingProcedureKit
+#if canImport(SystemConfiguration)
+import SystemConfiguration
 
 class SCNetworkReachabilityFlagsTests: XCTestCase {
 
@@ -173,4 +174,4 @@ class ReachabilityObserverTests: XCTestCase {
     }
 }
 
-
+#endif

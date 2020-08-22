@@ -5,10 +5,11 @@
 //
 
 import XCTest
-import SystemConfiguration
 import ProcedureKit
 import TestingProcedureKit
 @testable import ProcedureKitNetwork
+#if canImport(SystemConfiguration)
+import SystemConfiguration
 
 class NetworkReachabilityWaitProcedureTests: ProcedureKitTestCase {
 
@@ -198,3 +199,5 @@ class NetworkProcedureTests: ProcedureKitTestCase {
         XCTAssertFalse(didReceivePayload)
     }
 }
+
+#endif

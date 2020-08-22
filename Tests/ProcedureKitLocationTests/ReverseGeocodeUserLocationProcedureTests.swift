@@ -8,6 +8,9 @@ import XCTest
 import ProcedureKit
 import TestingProcedureKit
 @testable import ProcedureKitLocation
+#if canImport(CoreLocation) && canImport(MapKit)
+import CoreLocation
+import MapKit
 
 class ReverseGeocodeUserLocationProcedureTests: LocationProcedureTestCase {
 
@@ -51,3 +54,5 @@ class ReverseGeocodeUserLocationProcedureTests: LocationProcedureTestCase {
         PKAssertProcedureCancelledWithError(procedure, ProcedureKitError.timedOut(with: .by(1)))
     }
 }
+
+#endif

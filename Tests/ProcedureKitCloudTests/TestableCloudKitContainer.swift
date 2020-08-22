@@ -5,10 +5,11 @@
 //
 
 import XCTest
-import CloudKit
 import ProcedureKit
 import TestingProcedureKit
 @testable import ProcedureKitCloud
+#if canImport(CloudKit)
+import CloudKit
 
 class TestableCloudKitContainerRegistrar: CloudKitContainerRegistrar {
 
@@ -45,4 +46,4 @@ class TestableCloudKitContainerRegistrar: CloudKitContainerRegistrar {
     }
 }
 
-
+#endif

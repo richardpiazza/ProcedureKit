@@ -8,6 +8,7 @@ import XCTest
 import ProcedureKit
 import TestingProcedureKit
 @testable import ProcedureKitCloud
+#if canImport(CloudKit)
 
 class TestCKFetchAllChangesOperation: TestCKOperation, CKFetchAllChanges {
     var fetchAllChanges: Bool = true
@@ -41,3 +42,5 @@ class CKFetchAllChangesOperationTests: CKProcedureTestCase {
         XCTAssertEqual(target.fetchAllChanges, fetchAllChanges)
     }
 }
+
+#endif

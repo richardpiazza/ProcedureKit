@@ -8,6 +8,7 @@ import XCTest
 import TestingProcedureKit
 @testable import ProcedureKit
 
+#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
 class KVOTests: ProcedureKitTestCase {
 
     class NSOperationKVOObserver: NSObject {
@@ -378,3 +379,5 @@ extension Collection {
 }
 
 private var TestKVOOperationKVOContext = 0
+
+#endif

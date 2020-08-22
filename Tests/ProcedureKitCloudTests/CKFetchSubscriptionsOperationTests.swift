@@ -5,10 +5,11 @@
 //
 
 import XCTest
-import CloudKit
 import ProcedureKit
 import TestingProcedureKit
 @testable import ProcedureKitCloud
+#if canImport(CloudKit)
+import CloudKit
 
 class TestCKFetchSubscriptionsOperation: TestCKDatabaseOperation, CKFetchSubscriptionsOperationProtocol, AssociatedErrorProtocol {
     typealias AssociatedError = FetchSubscriptionsError<Subscription>
@@ -214,3 +215,4 @@ class CloudKitProcedureFetchSubscriptionsOperationTests: CKProcedureTestCase {
     
 }
 
+#endif

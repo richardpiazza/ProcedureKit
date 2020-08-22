@@ -8,6 +8,7 @@ import XCTest
 import ProcedureKit
 import TestingProcedureKit
 @testable import ProcedureKitCoreData
+#if canImport(CoreData)
 
 final class InsertManagedObjectsProcedureTests: ProcedureKitCoreDataTestCase {
 
@@ -68,3 +69,5 @@ final class InsertManagedObjectsProcedureTests: ProcedureKitCoreDataTestCase {
         XCTAssertEqual(names.count, 0)
     }
 }
+
+#endif

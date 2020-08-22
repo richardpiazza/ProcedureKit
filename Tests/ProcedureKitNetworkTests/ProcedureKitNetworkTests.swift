@@ -8,6 +8,9 @@ import XCTest
 import ProcedureKit
 import TestingProcedureKit
 @testable import ProcedureKitNetwork
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 extension TestableURLSessionTask: URLSessionTaskProtocol, NetworkDataTask, NetworkDownloadTask, NetworkUploadTask { }
 extension TestableURLSessionTaskFactory: NetworkSession {

@@ -8,6 +8,8 @@ import XCTest
 import ProcedureKit
 import TestingProcedureKit
 @testable import ProcedureKitCloud
+#if canImport(CloudKit)
+import CloudKit
 
 class TestCKOperation: Operation, CKOperationProtocol {
 
@@ -108,3 +110,5 @@ class CKOperationTests: CKProcedureTestCase {
         XCTAssertEqual(target.timeoutIntervalForResource, timeout)
     }
 }
+
+#endif

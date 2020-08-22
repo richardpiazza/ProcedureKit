@@ -5,10 +5,12 @@
 //
 
 import XCTest
-import MapKit
 import ProcedureKit
 import TestingProcedureKit
 @testable import ProcedureKitLocation
+#if canImport(CoreLocation) && canImport(MapKit)
+import CoreLocation
+import MapKit
 
 func createLocation(withAccuracy accuracy: CLLocationAccuracy = 10) -> CLLocation {
     return CLLocation(
@@ -206,4 +208,4 @@ class LocationProcedureTestCase: ProcedureKitTestCase {
     }
 }
 
-
+#endif

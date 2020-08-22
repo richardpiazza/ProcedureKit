@@ -284,7 +284,7 @@ class ProcedureFinishStressTest: StressTestCase {
                     return
                 }
                 // add small delay before leaving to increase the odds that concurrent finishes are caught
-                let deadline = DispatchTime(uptimeNanoseconds: UInt64(0.1 * Double(NSEC_PER_SEC)))
+                let deadline = DispatchTime(uptimeNanoseconds: 100000000)
                 DispatchQueue.global().asyncAfter(deadline: deadline) {
                     batch.dispatchGroup.leave()
                 }
