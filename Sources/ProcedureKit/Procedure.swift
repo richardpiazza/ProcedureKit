@@ -74,27 +74,6 @@ public enum ProcedureStatus: String {
     case pending, executing, cancelled, failed, finished
 }
 
-
-/**
- Type to express the intent of the user in regards to executing an Operation instance
-
- - see: https://developer.apple.com/library/ios/documentation/Performance/Conceptual/EnergyGuide-iOS/PrioritizeWorkWithQoS.html#//apple_ref/doc/uid/TP40015243-CH39
- */
-@available(*, deprecated, message: "Use underlying quality of service APIs instead.")
-@objc public enum UserIntent: Int {
-    case none = 0, sideEffect, initiated
-
-    internal var qualityOfService: QualityOfService {
-        switch self {
-        case .initiated, .sideEffect:
-            return .userInitiated
-        default:
-            return .default
-        }
-    }
-}
-
-
 /**
  Procedure is an Operation subclass. It is an abstract class which should be subclassed.
 
@@ -193,18 +172,6 @@ open class Procedure: Operation, ProcedureProtocol {
     // A serial FIFO queue onto which all Procedure Events that call user code are dispatched.
     // (ex. `execute()` overrides, observer callbacks, etc.)
     public let eventQueue = EventQueue(label: "run.kit.procedure.ProcedureKit.Procedure.EventQueue")
-
-    /**
-     Expresses the user intent in regards to the execution of this Procedure.
-
-     Setting this property will set the appropriate quality of service parameter
-     on the parent Operation.
-
-     - requires: self must not have started yet. i.e. either hasn't been added
-     to a queue, or is waiting on dependencies.
-     */
-    @available(*, deprecated, message: "Use underlying quality of service APIs instead.")
-    public var userIntent: UserIntent = .none
 
     open override var qualityOfService: QualityOfService {
         get { return super.qualityOfService }
@@ -1811,21 +1778,6 @@ public extension Procedure {
     @available(*, deprecated, renamed: "addDependency(_:)", message: "This has been renamed to use Swift 3/4 naming conventions")
     final func add<Dependency: ProcedureProtocol>(dependency: Dependency) {
         addDependency(dependency)
-    }
-
-    @available(*, deprecated, renamed: "addDirectDependency(_:)", message: "This has been renamed to use Swift 3/4 naming conventions")
-    func add(directDependency: Operation) {
-        addDirectDependency(directDependency)
-    }
-
-    @available(*, deprecated, renamed: "removeDirectDependency(_:)", message: "This has been renamed to use Swift 3/4 naming conventions")
-    func remove(directDependency: Operation) {
-        removeDirectDependency(directDependency)
-    }
-
-    @available(*, deprecated, renamed: "addCondition(_:)", message: "This has been renamed to use Swift 3/4 naming conventions")
-    final func add(condition: Condition) {
-        addCondition(condition)
     }
 }
 

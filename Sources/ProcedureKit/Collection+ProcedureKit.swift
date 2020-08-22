@@ -27,11 +27,6 @@ extension Collection where Iterator.Element: Operation {
         return compactMap { $0 as? Condition }
     }
     
-    @available(*, deprecated, message: "Use underlying quality of service APIs instead.")
-    internal var userIntent: UserIntent {
-        get { return .none }
-    }
-
     internal func forEachProcedure(body: (Procedure) throws -> Void) rethrows {
         try forEach {
             if let procedure = $0 as? Procedure {

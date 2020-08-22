@@ -53,24 +53,6 @@ public protocol ProcedureProtocol: class {
     // Dependencies
 
     func add<Dependency: ProcedureProtocol>(dependency: Dependency)
-
-
-    // Deprecations
-
-    @available(*, deprecated, message: "Use cancel(with:) instead. This API will now just use the first error.")
-    func cancel(withErrors: [Error])
-
-    @available(*, deprecated, message: "Use procedureDidCancel(with:) instead. This API will now just use the first error.")
-    func procedureDidCancel(withErrors: [Error])
-
-    @available(*, deprecated, message: "Use finish(with:) instead. This API will now just use the first error.")
-    func finish(withErrors: [Error])
-
-    @available(*, deprecated, message: "Use procedureWillFinish(with:) instead. This API will now just receive a single error.")
-    func procedureWillFinish(withErrors: [Error])
-
-    @available(*, deprecated, message: "Use procedureDidFinish(with:) instead. This API will now just receive a single error.")
-    func procedureDidFinish(withErrors: [Error])
 }
 
 

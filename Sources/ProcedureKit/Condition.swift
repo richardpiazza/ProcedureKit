@@ -488,46 +488,6 @@ internal extension Condition {
     }
 }
 
-// MARK: - Deprecations
-
-public extension Condition {
-
-    @available(*, deprecated, renamed: "produceDependency(_:)", message: "This has been renamed to use Swift 3/4 naming conventions")
-    final func produce(dependency: Operation) {
-        produceDependency(dependency)
-    }
-
-    @available(*, deprecated, renamed: "addDependency(_:)", message: "This has been renamed to use Swift 3/4 naming conventions")
-    final func add(dependency: Operation) {
-        addDependency(dependency)
-    }
-
-    @available(*, deprecated, renamed: "addDependencies(_:)", message: "This has been renamed to use Swift 3/4 naming conventions")
-    final func add(dependencies: [Operation]) {
-        addDependencies(dependencies)
-    }
-
-    @available(*, deprecated, renamed: "addDependencies(_:)", message: "This has been renamed to use Swift 3/4 naming conventions")
-    final func add(dependencies: Operation...) {
-        addDependencies(dependencies)
-    }
-
-    @available(*, deprecated, renamed: "removeDependency(_:)", message: "This has been renamed to use Swift 3/4 naming conventions")
-    func remove(dependency: Operation) {
-        removeDependency(dependency)
-    }
-
-    @available(*, deprecated, renamed: "removeDependencies(_:)", message: "This has been renamed to use Swift 3/4 naming conventions")
-    func remove(dependencies: [Operation]) {
-        removeDependencies(dependencies)
-    }
-
-    @available(*, deprecated, renamed: "removeDependencies(_:)", message: "This has been renamed to use Swift 3/4 naming conventions")
-    func remove(dependencies: Operation...) {
-        removeDependencies(dependencies)
-    }
-}
-
 // MARK: - Condition Subclasses
 
 /**

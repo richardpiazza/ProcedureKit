@@ -103,30 +103,6 @@ public protocol ProcedureObserver {
 }
 
 public extension ProcedureObserver {
-    // MARK: - Unavailable/renamed observer callbacks
-    @available(*, unavailable, renamed: "will(execute:pendingExecute:)")
-    func will(execute procedure: Procedure) { }
-
-    @available(*, unavailable, renamed: "will(finish:withErrors:pendingFinish:)")
-    func will(finish procedure: Procedure, withErrors: [Error]) { }
-
-    @available(*, deprecated, renamed: "did(cancel:with:)", message: "Use did(cancel:with:) instead.")
-    func did(cancel procedure: Procedure, withErrors errors: [Error]) {
-        did(cancel: procedure, with: errors.first)
-    }
-
-    @available(*, deprecated, renamed: "will(finish:with:pendingFinish:)", message: "Use will(finish:with:pendingFinish:) instead.")
-    func will(finish procedure: Procedure, withErrors errors: [Error], pendingFinish: PendingFinishEvent) {
-        will(finish: procedure, with: errors.first, pendingFinish: pendingFinish)
-    }
-
-    @available(*, deprecated, renamed: "did(finish:with:)", message: "Use did(finish:with:) instead.")
-    func did(finish procedure: Procedure, withErrors errors: [Error]) {
-        did(finish: procedure, with: errors.first)
-    }
-}
-
-public extension ProcedureObserver {
 
     /// Do nothing.
     func didAttach(to procedure: Procedure) { }
@@ -158,29 +134,3 @@ public extension ProcedureObserver {
     /// - Returns: nil
     var eventQueue: DispatchQueueProtocol? { return nil }
 }
-
-// MARK: - Unavilable & Renamed
-
-@available(*, unavailable, renamed: "ProcedureObserver")
-public protocol OperationObserverType { }
-
-@available(*, unavailable, renamed: "ProcedureObserver")
-public protocol OperationWillExecuteObserver { }
-
-@available(*, unavailable, renamed: "ProcedureObserver")
-public protocol OperationWillCancelObserver { }
-
-@available(*, unavailable, renamed: "ProcedureObserver")
-public protocol OperationDidCancelObserver { }
-
-@available(*, unavailable, renamed: "ProcedureObserver")
-public protocol OperationDidProduceOperationObserver { }
-
-@available(*, unavailable, renamed: "ProcedureObserver")
-public protocol OperationWillFinishObserver { }
-
-@available(*, unavailable, renamed: "ProcedureObserver")
-public protocol OperationDidFinishObserver { }
-
-@available(*, unavailable, renamed: "ProcedureObserver")
-public protocol OperationObserver { }

@@ -611,39 +611,3 @@ fileprivate class _SyncAlreadyAvailableFuture: ProcedureFuture {
         block()
     }
 }
-
-// MARK: - Unavilable & Renamed
-
-@available(*, unavailable, renamed: "ProcedureQueueDelegate")
-public protocol OperationQueueDelegate: class { }
-
-public extension ProcedureQueue {
-
-    @available(*, deprecated, renamed: "addOperation(_:withContext:)", message: "This has been renamed to use Swift 3/4 naming conventions")
-    @discardableResult func add(operation: Operation, withContext context: Any? = nil) -> ProcedureFuture {
-        return addOperation(operation, withContext: context)
-    }
-
-    @available(*, deprecated, renamed: "addOperations(_:withContext:)", message: "This has been renamed to use Swift 3/4 naming conventions")
-    @discardableResult final func add<S: Sequence>(operations: S, withContext context: Any? = nil) -> ProcedureFuture where S.Iterator.Element: Operation {
-        return addOperations(operations, withContext: context)
-    }
-
-    @available(*, deprecated, renamed: "addOperations(_:withContext:)", message: "This has been renamed to use Swift 3/4 naming conventions")
-    final func add(operations: Operation..., withContext context: Any? = nil) -> ProcedureFuture {
-        return addOperations(operations, withContext: context)
-    }
-}
-
-public extension OperationQueue {
-
-    @available(*, deprecated, renamed: "addOperations(_:)", message: "This has been renamed to use Swift 3/4 naming conventions")
-    final func add<S>(operations: S) where S: Sequence, S.Iterator.Element: Operation {
-        addOperations(operations)
-    }
-
-    @available(*, deprecated, renamed: "addOperations(_:)", message: "This has been renamed to use Swift 3/4 naming conventions")
-    final func add(operations: Operation...) {
-        addOperations(operations)
-    }
-}

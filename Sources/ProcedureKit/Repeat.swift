@@ -326,51 +326,6 @@ open class RepeatProcedure<T: Operation>: GroupProcedure {
     }
 }
 
-// MARK: - Repeatable
-
-/// Repeatable protocol is a very simple protocol which allows
-/// `Operation` subclasses to determine whether they should
-/// trigger another repeated value. In other words, the current
-/// just finished instance determines whether a new instance is
-/// executed next, or the repeating finishes.
-@available(*, deprecated, message: "Use RepeatProcedure or RetryProcedure instead")
-public protocol Repeatable {
-
-    /// Determines whether or not a subsequent instance of the
-    /// receiver should be executed.
-    ///
-    /// - Parameter count: an Int, the number of instances executes thus far
-    /// - Returns: a Bool, true to indicate that another instance should be executed.
-    func shouldRepeat(count: Int) -> Bool
-}
-
-@available(*, deprecated, message: "Use RepeatProcedure or RetryProcedure instead")
-extension RepeatProcedure where T: Repeatable {
-
-    /// Initialize RepeatProcedure with a WaitStrategy and a closure. The closure returns
-    /// an optional instance of T which conform to the `Repeatable` protocol.
-    /// i.e. T is the Operation subclass to be repeated.
-    /// Other arguments allow for specific dispatch queues, and a maximum count of iteratations.
-    ///
-    /// This is the most convenient initializer, you can use it like this:
-    /// ```swift
-    ///    let procedure = RepeatProcedure { MyRepeatableOperation() }
-    ///    let procedure = RepeatProcedure(dispatchQueue: target) { MyRepeatableOperation() }
-    ///    let procedure = RepeatProcedure(dispatchQueue: target, max: 5) { MyRepeatableOperation() }
-    ///    let procedure = RepeatProcedure(dispatchQueue: target, max: 5, wait: .constant(10)) { MyRepeatableOperation() }
-    /// ```
-    ///
-    /// - Parameters:
-    ///   - dispatchQueue: an optional DispatchQueue, which defaults to nil
-    ///   - max: an optional Int, which defaults to nil.
-    ///   - wait: a WaitStrategy value, which defaults to .immediate
-    ///   - body: an espacing closure which returns an optional T
-    @available(*, deprecated, message: "Use RepeatProcedure or RetryProcedure instead")
-    public convenience init(dispatchQueue: DispatchQueue? = nil, max: Int? = nil, wait: WaitStrategy = .immediate, body: @escaping () -> T?) {
-        self.init(dispatchQueue: dispatchQueue, max: max, wait: wait, iterator: RepeatableGenerator(AnyIterator(body)))
-    }
-}
-
 // MARK: - Extensions
 
 extension RepeatProcedure: InputProcedure where T: InputProcedure {
@@ -429,26 +384,6 @@ extension RepeatProcedure: OutputProcedure where T: OutputProcedure {
 }
 
 // MARK: - Iterators
-
-@available(*, deprecated, message: "Use RepeatProcedure or RetryProcedure instead")
-internal struct RepeatableGenerator<Element: Repeatable>: IteratorProtocol {
-
-    private var iterator: CountingIterator<Element>
-    private var latest: Element?
-
-    init<I: IteratorProtocol>(_ base: I) where I.Element == Element {
-        let mutatingBaseIterator = AnyIterator(base)
-        iterator = CountingIterator { _ in return mutatingBaseIterator.next() }
-    }
-
-    mutating func next() -> Element? {
-        if let latest = latest {
-            guard latest.shouldRepeat(count: iterator.count) else { return nil }
-        }
-        latest = iterator.next()
-        return latest
-    }
-}
 
 public struct CountingIterator<Element>: IteratorProtocol {
 

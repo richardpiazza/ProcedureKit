@@ -80,18 +80,3 @@ open class AsyncResultProcedure<Output>: ResultProcedure<Output> {
         }
     }
 }
-
-@available(*, deprecated, message: "Use ResultProcedure directly and query the procedure argument inside your block.")
-open class CancellableResultProcedure<Output>: ResultProcedure<Output> {
-
-    /// A block that receives a closure (that returns the current value of `isCancelled`
-    /// for the CancellableResultProcedure), and returns a value (which is set as the
-    /// CancellableResultProcedure's `output`).
-    public typealias ThrowingCancellableOutputBlock = (() -> Bool) throws -> Output
-
-    public init(cancellableBlock: @escaping ThrowingCancellableOutputBlock) {
-        super.init { (resultProcedure) -> Output in
-            return try cancellableBlock { resultProcedure.isCancelled }
-        }
-    }
-}

@@ -212,12 +212,6 @@ open class GroupProcedure: Procedure {
         error = childError
     }
 
-    @available(*, deprecated, renamed: "child(_:willFinishWithError:)", message: "Use child(_:,willFinishWithError:) instead.")
-    open func child(_ childProcedure: Procedure, willFinishWithErrors errors: [Error]) {
-        assertionFailure("Use child(_:willFinishWithError:) instead.")
-        child(childProcedure, willFinishWithError: errors.first)
-    }
-
     /**
      The transformChildErrorsBlock is called before the GroupProcedure handles child errors.
      (It is called on the Group's EventQueue.)
@@ -739,58 +733,5 @@ fileprivate extension ProcedureQueue {
         // Do not add conditions (CanFinishGroup has none)
         // Call OperationQueue.addOperation() directly
         super.addOperation(canFinishGroup)
-    }
-}
-
-// MARK: - Deprecations Unavailable
-
-public extension GroupProcedure {
-
-    @available(*, unavailable, renamed: "children")
-    var operations: [Operation] { return children }
-
-    @available(*, unavailable, renamed: "isSuspended")
-    final var suspended: Bool { return isSuspended }
-
-    @available(*, unavailable, renamed: "addChild(_:before:)")
-    func addOperation(operation: Operation) { }
-
-    @available(*, unavailable, renamed: "add(children:)")
-    func addOperations(operations: Operation...) { }
-
-    @available(*, unavailable, renamed: "add(children:)")
-    func addOperations(additional: [Operation]) { }
-
-    @available(*, unavailable, message: "GroupProcedure child error handling customization has been re-worked. Consider overriding child(_:willFinishWithError:).")
-    final func childDidRecoverFromErrors(_ child: Operation) { }
-
-    @available(*, unavailable, message: "GroupProcedure child error handling customization has been re-worked. Consider overriding child(_:willFinishWithError:).")
-    final func childDidNotRecoverFromErrors(_ child: Operation) { }
-
-    @available(*, unavailable, message: "GroupProcedure no longer collects all the child errors within itself")
-    final func append(fatalError error: Error) { }
-
-    @available(*, unavailable, message: "GroupProcedure no longer collects all the child errors within itself")
-    final func append(fatalErrors errors: [Error]) { }
-
-    @available(*, unavailable, message: "GroupProcedure no longer collects all the child errors within itself")
-    final func append(error: Error, fromChild child: Operation? = nil) { }
-
-    @available(*, unavailable, message: "GroupProcedure no longer collects all the child errors within itself")
-    final func append(errors: [Error], fromChild child: Operation? = nil) { }
-
-    @available(*, deprecated, renamed: "addChild(_:before:)", message: "This has been renamed to use Swift 3/4 naming conventions")
-    final func add(child: Operation, before pendingEvent: PendingEvent? = nil) {
-        addChild(child, before: pendingEvent)
-    }
-
-    @available(*, deprecated, renamed: "addChildren(_:before:)", message: "This has been renamed to use Swift 3/4 naming conventions")
-    final func add(children: Operation..., before pendingEvent: PendingEvent? = nil) {
-        addChildren(children, before: pendingEvent)
-    }
-
-    @available(*, deprecated, renamed: "addChildren(_:before:)", message: "This has been renamed to use Swift 3/4 naming conventions")
-    final func add<Children: Collection>(children: Children, before pendingEvent: PendingEvent? = nil) where Children.Iterator.Element: Operation {
-        addChildren(children, before: pendingEvent)
     }
 }

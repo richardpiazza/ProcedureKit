@@ -105,32 +105,3 @@ public extension Operation {
         return then(do: operation)
     }
 }
-
-
-public extension Operation {
-
-    @available(*, deprecated, renamed: "addDependencies(_:)", message: "This has been renamed to use Swift 3/4 naming conventions")
-    func add<Operations: Sequence>(dependencies: Operations) where Operations.Iterator.Element: Operation {
-        addDependencies(dependencies)
-    }
-
-    @available(*, deprecated, renamed: "addDependencies(_:)", message: "This has been renamed to use Swift 3/4 naming conventions")
-    func add(dependencies: Operation...) {
-        addDependencies(dependencies)
-    }
-
-    @available(*, deprecated, renamed: "addDependency(_:)", message: "This has been removed.")
-    func add(dependency: Operation) {
-        addDependency(dependency)
-    }
-
-    @available(*, deprecated, renamed: "addDependencies(_:)", message: "This has been renamed to use Swift 3/4 naming conventions")
-    func remove<Operations: Sequence>(dependencies: Operations) where Operations.Iterator.Element: Operation {
-        removeDependencies(dependencies)
-    }
-
-    @available(*, deprecated, renamed: "removeDependency(_:)", message: "This has been removed.")
-    func remove(dependency: Operation) {
-        removeDependency(dependency)
-    }
-}
