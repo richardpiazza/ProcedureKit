@@ -263,11 +263,7 @@ public class EventConcurrencyTrackingRegistrar {
 
         private func truncateThreadID(_ uuidString: String) -> String {
             //let uuidString = threadUUID.uuidString
-            #if swift(>=3.2)
             return String(uuidString[..<uuidString.index(uuidString.startIndex, offsetBy: 4)])
-            #else
-            return uuidString.substring(to: uuidString.index(uuidString.startIndex, offsetBy: 4))
-            #endif
         }
 
         public var description: String {

@@ -478,26 +478,18 @@ fileprivate extension ProcessProcedure {
     func createProcess(withRequest request: LaunchRequest) -> Process {
         let process = Process()
 
-        #if swift(>=3.2)
-            if #available(OSX 10.13, *) {
-                process.executableURL = request.executableURL
-                if let currentDirectoryURL = request.currentDirectoryURL {
-                    process.currentDirectoryURL = currentDirectoryURL
-                }
+        if #available(OSX 10.13, *) {
+            process.executableURL = request.executableURL
+            if let currentDirectoryURL = request.currentDirectoryURL {
+                process.currentDirectoryURL = currentDirectoryURL
             }
-            else {
-                // Versions of macOS < 10.13 only support string-based paths
-                process.launchPath = request.executableURL.path
-                if let currentDirectoryPath = request.currentDirectoryURL?.path {
-                    process.currentDirectoryPath = currentDirectoryPath
-                }
-            }
-        #else
+        } else {
+            // Versions of macOS < 10.13 only support string-based paths
             process.launchPath = request.executableURL.path
             if let currentDirectoryPath = request.currentDirectoryURL?.path {
                 process.currentDirectoryPath = currentDirectoryPath
             }
-        #endif
+        }
         if let arguments = request.arguments {
             process.arguments = arguments
         }
@@ -516,7 +508,6 @@ fileprivate extension ProcessProcedure {
         return process
     }
 
-    #if swift(>=3.2)
     // On macOS 10.13+, new methods on Process are available that throw errors
     // (instead of raising Objective-C exceptions). This method uses them if
     // possible.
@@ -529,12 +520,6 @@ fileprivate extension ProcessProcedure {
             process.launch()
         }
     }
-    #else
-    fileprivate func run(process: Process) throws {
-        // Earlier SDKs only support Process.launch()
-        process.launch()
-    }
-    #endif
 }
 
 // MARK: - Unavailable

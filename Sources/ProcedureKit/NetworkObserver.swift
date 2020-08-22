@@ -8,11 +8,7 @@ import Foundation
 import Dispatch
 
 public protocol NetworkActivityIndicatorProtocol {
-    #if swift(>=3.2)
-        var isNetworkActivityIndicatorVisible: Bool { get set }
-    #else // Swift < 3.2 (Xcode 8.x)
-        var networkActivityIndicatorVisible: Bool { get set }
-    #endif
+    var isNetworkActivityIndicatorVisible: Bool { get set }
 }
 
 public class NetworkActivityController {
@@ -77,15 +73,9 @@ public class NetworkActivityController {
         delayedHide = nil
         DispatchQueue.main.async {
             // only set the visibility if it has changed
-            #if swift(>=3.2)
-                if self.indicator.isNetworkActivityIndicatorVisible != visibility {
-                    self.indicator.isNetworkActivityIndicatorVisible = visibility
-                }
-            #else // Swift < 3.2 (Xcode 8.x)
-                if self.indicator.networkActivityIndicatorVisible != visibility {
-                    self.indicator.networkActivityIndicatorVisible = visibility
-                }
-            #endif
+            if self.indicator.isNetworkActivityIndicatorVisible != visibility {
+                self.indicator.isNetworkActivityIndicatorVisible = visibility
+            }
         }
     }
 }

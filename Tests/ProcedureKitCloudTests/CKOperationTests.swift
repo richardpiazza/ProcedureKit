@@ -34,11 +34,7 @@ class TestCKOperation: Operation, CKOperationProtocol {
     var allowsCellularAccess: Bool = true
 
     var operationID: String = ""
-    #if swift(>=3.2)
-        var isLongLived: Bool = false
-    #else // Swift 3.x
-        var longLived: Bool = false
-    #endif
+    var isLongLived: Bool = false
 
     var longLivedOperationWasPersistedBlock: () -> Void = { }
 
@@ -85,15 +81,9 @@ class CKOperationTests: CKProcedureTestCase {
 
     func test__set_get__longLived() {
         let longLived = true
-        #if swift(>=3.2)
-            operation.isLongLived = longLived
-            XCTAssertEqual(operation.isLongLived, longLived)
-            XCTAssertEqual(target.isLongLived, longLived)
-        #else // Swift < 3.2 (Xcode 8.x)
-            operation.longLived = longLived
-            XCTAssertEqual(operation.longLived, longLived)
-            XCTAssertEqual(target.longLived, longLived)
-        #endif
+        operation.isLongLived = longLived
+        XCTAssertEqual(operation.isLongLived, longLived)
+        XCTAssertEqual(target.isLongLived, longLived)
     }
 
     func test__set_get__longLivedOperationWasPersistedBlock() {
