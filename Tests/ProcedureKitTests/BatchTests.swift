@@ -10,6 +10,11 @@ import TestingProcedureKit
 
 class BatchProcedureTests: ProcedureKitTestCase {
 
+    static var allTests = [
+        ("test__batch", test__batch),
+        ("test__batch_cancel_if_input_not_ready", test__batch_cancel_if_input_not_ready),
+    ]
+    
     class Greeter: TransformProcedure<String, String> {
         init() {
             super.init { "Hello \($0)" }

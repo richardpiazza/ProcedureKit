@@ -1,3 +1,9 @@
+//
+//  ProcedureKit
+//
+//  Copyright © 2015-2020 ProcedureKit. All rights reserved.
+//
+
 import XCTest
 
 import ProcedureKitTests
@@ -10,4 +16,5 @@ import ProcedureKitMobileTests
 import ProcedureKitNetworkTests
 
 var tests = [XCTestCaseEntry]()
+tests += ProcedureKitTests.allTests()
 XCTMain(tests)
