@@ -4,11 +4,8 @@
 //  Copyright © 2015-2018 ProcedureKit. All rights reserved.
 //
 
-#if SWIFT_PACKAGE
-    import ProcedureKit
-    import Foundation
-#endif
-
+import ProcedureKit
+import Foundation
 import CloudKit
 
 /// A generic protocol which exposes the properties used by Apple's CKFetchRecordZoneChangesOperation.
@@ -34,7 +31,6 @@ public protocol CKFetchRecordZoneChangesOperationProtocol: CKDatabaseOperationPr
     var optionsByRecordZoneID: [RecordZoneID: FetchRecordZoneChangesOptions]? { get set }
 
     /// - returns: the per-record-zone configuration
-    @available(iOS 12.0, OSX 10.14, tvOS 12.0, watchOS 5.0, *)
     var configurationsByRecordZoneID: [RecordZoneID: FetchRecordZoneChangesConfiguration]? { get set }
 
     /// - returns: a block for when a record is changed
@@ -53,7 +49,6 @@ public protocol CKFetchRecordZoneChangesOperationProtocol: CKDatabaseOperationPr
     var fetchRecordZoneChangesCompletionBlock: ((Error?) -> Void)? { get set }
 }
 
-@available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *)
 extension CKFetchRecordZoneChangesOperation: CKFetchRecordZoneChangesOperationProtocol, AssociatedErrorProtocol {
 
     // The associated error type
@@ -66,7 +61,6 @@ extension CKFetchRecordZoneChangesOperation: CKFetchRecordZoneChangesOperationPr
     @available(watchOS, introduced: 3.0, deprecated: 5.0)
     public typealias FetchRecordZoneChangesOptions = CKFetchRecordZoneChangesOperation.ZoneOptions
 
-    @available(iOS 12.0, OSX 10.14, tvOS 12.0, watchOS 5.0, *)
     public typealias FetchRecordZoneChangesConfiguration = CKFetchRecordZoneChangesOperation.ZoneConfiguration
 }
 
@@ -89,7 +83,6 @@ extension CKProcedure where T: CKFetchRecordZoneChangesOperationProtocol, T: Ass
     }
 
     /// - returns: the per-record-zone configuration
-    @available(iOS 12.0, OSX 10.14, tvOS 12.0, watchOS 5.0, *)
     public var configurationsByRecordZoneID: [T.RecordZoneID: T.FetchRecordZoneChangesConfiguration]? {
         get { return operation.configurationsByRecordZoneID }
         set {operation.configurationsByRecordZoneID = newValue }
@@ -172,7 +165,6 @@ extension CloudKitProcedure where T: CKFetchRecordZoneChangesOperationProtocol {
     }
 
     /// - returns: the per-record-zone configuration
-    @available(iOS 12.0, OSX 10.14, tvOS 12.0, watchOS 5.0, *)
     public var configurationsByRecordZoneID: [T.RecordZoneID: T.FetchRecordZoneChangesConfiguration]? {
         get { return current.configurationsByRecordZoneID }
         set {

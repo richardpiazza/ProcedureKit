@@ -4,11 +4,9 @@
 //  Copyright © 2015-2018 ProcedureKit. All rights reserved.
 //
 
-#if SWIFT_PACKAGE
 import ProcedureKit
 import Foundation
-#endif
-#if canImport(UIKit)
+#if canImport(UIKit) && !os(watchOS)
 import UIKit
 
 /// A struct of the views which require autolayout constraints
@@ -20,7 +18,6 @@ public struct AutolayoutViews {
 /// A block type which receives the child's view to perform any autolayout.
 public typealias SetAutolayoutConstraintsBlockType = (AutolayoutViews) -> ()
 
-@available(iOS 9.0, *)
 public enum SetAutolayoutConstraints {
 
     // Uses NSLayoutConstraint pinning the child to the parent's anchors.
@@ -80,7 +77,6 @@ open class AddChildViewControllerProcedure: UIBlockProcedure {
         name = "Add Child ViewController"
     }
 
-    @available(iOS 9.0, *)
     public convenience init(_ child: UIViewController, to parent: UIViewController, with frame: CGRect? = nil, in subview: UIView? = nil, setAutolayoutConstraints strategy: SetAutolayoutConstraints = .pinnedToParent) {
         self.init(child, to: parent, with: frame, in: subview, setAutolayoutConstraints: strategy.block)
     }
@@ -112,7 +108,6 @@ open class SetChildViewControllerProcedure: UIBlockProcedure {
         name = "Set Child ViewController"
     }
 
-    @available(iOS 9.0, *)
     public convenience init(_ child: UIViewController, in parent: UIViewController, with frame: CGRect? = nil, in subview: UIView? = nil, setAutolayoutConstraints strategy: SetAutolayoutConstraints = .pinnedToParent) {
         self.init(child, in: parent, with: frame, in: subview, setAutolayoutConstraints: strategy.block)
     }

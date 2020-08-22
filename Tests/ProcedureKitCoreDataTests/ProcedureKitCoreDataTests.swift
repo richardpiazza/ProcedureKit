@@ -8,8 +8,9 @@ import XCTest
 import ProcedureKit
 import TestingProcedureKit
 @testable import ProcedureKitCoreData
+#if canImport(CoreData)
+import CoreData
 
-@available(macOS 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *)
 open class ProcedureKitCoreDataTestCase: ProcedureKitTestCase {
 
     typealias Insert = InsertManagedObjectsProcedure<TestEntityItem, TestEntity>
@@ -160,3 +161,5 @@ class TestSuiteRuns: XCTestCase {
         XCTAssertTrue(true)
     }
 }
+
+#endif

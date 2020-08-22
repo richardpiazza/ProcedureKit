@@ -52,7 +52,6 @@ open class GroupProcedure: Procedure {
      
      For more, see the NSOperation and NSOperationQueue documentation for `qualityOfService`.
      */
-    @available(OSX 10.10, iOS 8.0, tvOS 8.0, watchOS 2.0, *)
     open override var qualityOfService: QualityOfService {
         get { return queue.qualityOfService }
         set {

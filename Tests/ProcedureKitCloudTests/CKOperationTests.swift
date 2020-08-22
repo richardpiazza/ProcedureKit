@@ -33,7 +33,6 @@ class TestCKOperation: Operation, CKOperationProtocol {
     var container: String? // just a test
     var allowsCellularAccess: Bool = true
 
-    //@available(iOS 9.3, tvOS 9.3, OSX 10.12, watchOS 2.3, *)
     var operationID: String = ""
     #if swift(>=3.2)
         var isLongLived: Bool = false
@@ -43,7 +42,6 @@ class TestCKOperation: Operation, CKOperationProtocol {
 
     var longLivedOperationWasPersistedBlock: () -> Void = { }
 
-    //@available(iOS 10.0, tvOS 10.0, OSX 10.12, watchOS 3.0, *)
     var timeoutIntervalForRequest: TimeInterval = 0
     var timeoutIntervalForResource: TimeInterval = 0
 }
@@ -79,14 +77,12 @@ class CKOperationTests: CKProcedureTestCase {
         XCTAssertEqual(target.allowsCellularAccess, allowsCellularAccess)
     }
 
-    @available(iOS 9.3, tvOS 9.3, OSX 10.12, watchOS 2.3, *)
     func test__get_operationID() {
         let operationID = "test operationID"
         target.operationID = operationID
         XCTAssertEqual(operation.operationID, operationID)
     }
 
-    @available(iOS 9.3, tvOS 9.3, OSX 10.12, watchOS 2.3, *)
     func test__set_get__longLived() {
         let longLived = true
         #if swift(>=3.2)
@@ -100,7 +96,6 @@ class CKOperationTests: CKProcedureTestCase {
         #endif
     }
 
-    @available(iOS 9.3, tvOS 9.3, OSX 10.12, watchOS 2.3, *)
     func test__set_get__longLivedOperationWasPersistedBlock() {
         var setByBlock = false
         let block: () -> Void = { setByBlock = true }
@@ -109,7 +104,6 @@ class CKOperationTests: CKProcedureTestCase {
         XCTAssertTrue(setByBlock)
     }
 
-    @available(iOS 10.0, tvOS 10.0, OSX 10.12, watchOS 3.0, *)
     func test__set_get__timeoutIntervalForRequest() {
         let timeout: TimeInterval = 42
         operation.timeoutIntervalForRequest = timeout
@@ -117,7 +111,6 @@ class CKOperationTests: CKProcedureTestCase {
         XCTAssertEqual(target.timeoutIntervalForRequest, timeout)
     }
 
-    @available(iOS 10.0, tvOS 10.0, OSX 10.12, watchOS 3.0, *)
     func test__set_get__timeoutIntervalForResource() {
         let timeout: TimeInterval = 42
         operation.timeoutIntervalForResource = timeout

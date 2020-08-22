@@ -4,11 +4,8 @@
 //  Copyright © 2015-2018 ProcedureKit. All rights reserved.
 //
 
-#if SWIFT_PACKAGE
 import ProcedureKit
 import Foundation
-#endif
-
 import CoreData
 
 /**
@@ -51,7 +48,6 @@ final class MakeCoreDataStack: LoadCoreDataProcedure {
 
  This container would then be injected as the input into subsequent procedures.
  */
-@available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *)
 open class LoadCoreDataProcedure: Procedure, OutputProcedure {
 
     /// - returns: the output Pending<ProcedureResult<<NSPersistentContainer>>

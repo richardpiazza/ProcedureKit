@@ -4,8 +4,9 @@
 //  Copyright © 2015-2018 ProcedureKit. All rights reserved.
 //
 
+import ProcedureKit
 import Foundation
-#if canImport(UIKit)
+#if canImport(UIKit) && !os(watchOS)
 import UIKit
 
 /**
@@ -108,7 +109,6 @@ open class AlertProcedure: Procedure {
 
      - returns: the optional preferredAction, UIAlertAction
      */
-    @available (iOS 9.0, *)
     public var preferredAction: UIAlertAction? {
         get { return controller.preferredAction }
         set { fatalError("Set the preferred action using the add(actionWithTitle:style:isPreferred:handler:) method.") }

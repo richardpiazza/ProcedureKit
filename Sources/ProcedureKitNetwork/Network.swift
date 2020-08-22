@@ -4,13 +4,9 @@
 //  Copyright © 2015-2018 ProcedureKit. All rights reserved.
 //
 
+import ProcedureKit
+import Foundation
 #if !os(watchOS)
-
-#if SWIFT_PACKAGE
-    import ProcedureKit
-    import Foundation
-#endif
-
 import SystemConfiguration
 
 public protocol NetworkResilience {

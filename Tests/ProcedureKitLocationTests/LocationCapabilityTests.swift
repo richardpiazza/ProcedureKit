@@ -56,14 +56,12 @@ class CLAuthorizationStatusTests: XCTestCase {
     }
     #endif
 
-    @available(OSX 10.12, iOS 8.0, tvOS 8.0, watchOS 2.0, *)
     func test__given_status_authorized_always__requirement_when_in_use_met() {
         let status = CLAuthorizationStatus.authorizedAlways
         XCTAssertTrue(status.meets(requirement: .whenInUse))
         XCTAssertTrue(status.meets(requirement: nil))
     }
 
-    @available(OSX 10.12, iOS 8.0, tvOS 8.0, watchOS 2.0, *)
     func test__given_status_authorized_always__requirement_always_met() {
         let status = CLAuthorizationStatus.authorizedAlways
         XCTAssertTrue(status.meets(requirement: .always))

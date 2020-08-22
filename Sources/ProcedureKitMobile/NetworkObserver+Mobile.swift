@@ -4,8 +4,9 @@
 //  Copyright © 2015-2018 ProcedureKit. All rights reserved.
 //
 
+import ProcedureKit
 import Foundation
-#if canImport(UIKit)
+#if canImport(UIKit) && (!os(tvOS) && !os(watchOS))
 import UIKit
 
 extension UIApplication: NetworkActivityIndicatorProtocol { }

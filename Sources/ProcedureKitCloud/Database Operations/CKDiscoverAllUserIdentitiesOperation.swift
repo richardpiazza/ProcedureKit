@@ -6,11 +6,8 @@
 
 #if !os(tvOS)
 
-#if SWIFT_PACKAGE
-    import ProcedureKit
-    import Foundation
-#endif
-
+import ProcedureKit
+import Foundation
 import CloudKit
 
 /// A generic protocol which exposes the properties used by Apple's CKDiscoverAllUserIdentitiesOperation.
@@ -23,7 +20,6 @@ public protocol CKDiscoverAllUserIdentitiesOperationProtocol: CKOperationProtoco
     var discoverAllUserIdentitiesCompletionBlock: ((Error?) -> Void)? { get set }
 }
 
-@available(iOS 10.0, OSX 10.12, watchOS 3.0, *)
 extension CKDiscoverAllUserIdentitiesOperation: CKDiscoverAllUserIdentitiesOperationProtocol, AssociatedErrorProtocol {
 
     // The associated error type

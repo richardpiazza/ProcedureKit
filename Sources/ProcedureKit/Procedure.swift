@@ -59,7 +59,6 @@ internal struct ProcedureKit {
     }
 
     #if canImport(os)
-    @available(iOS 12.0, tvOS 12.0, watchOS 5.0, OSX 10.14, *)
     internal struct Signposts {
 
         internal static let procedure: OSLog = {
@@ -207,7 +206,6 @@ open class Procedure: Operation, ProcedureProtocol {
     @available(*, deprecated, message: "Use underlying quality of service APIs instead.")
     public var userIntent: UserIntent = .none
 
-    @available(OSX 10.10, iOS 8.0, tvOS 8.0, watchOS 2.0, *)
     open override var qualityOfService: QualityOfService {
         get { return super.qualityOfService }
         set {

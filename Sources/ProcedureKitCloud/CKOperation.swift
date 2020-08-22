@@ -4,10 +4,8 @@
 //  Copyright © 2015-2018 ProcedureKit. All rights reserved.
 //
 
-#if SWIFT_PACKAGE
-    import ProcedureKit
-    import Foundation
-#endif
+import ProcedureKit
+import Foundation
 
 import CloudKit
 
@@ -78,31 +76,25 @@ public protocol CKOperationProtocol: class {
     var allowsCellularAccess: Bool { get set }
 
     /// - returns a unique identifier for a long-lived CKOperation
-    @available(iOS 9.3, tvOS 9.3, OSX 10.12, watchOS 2.3, *)
     var operationID: String { get }
 
     #if swift(>=3.2)
         /// - returns whether the operation is long-lived
-        @available(iOS 9.3, tvOS 9.3, OSX 10.12, watchOS 2.3, *)
         var isLongLived: Bool { get set }
     #else // Swift < 3.2 (Xcode 8.x)
         /// - returns whether the operation is long-lived
-        @available(iOS 9.3, tvOS 9.3, OSX 10.12, watchOS 2.3, *)
         var longLived: Bool { get set }
     #endif
 
     /// - returns the block to execute when the server starts storing callbacks for this long-lived CKOperation
-    @available(iOS 9.3, tvOS 9.3, OSX 10.12, watchOS 2.3, *)
     var longLivedOperationWasPersistedBlock: LongLivedOperationWasPersistedBlockType { get set }
 
     /// If non-zero, overrides the timeout interval for any network requests issued by this operation.
     /// See NSURLSessionConfiguration.timeoutIntervalForRequest
-    @available(iOS 10.0, tvOS 10.0, OSX 10.12, watchOS 3.0, *)
     var timeoutIntervalForRequest: TimeInterval { get set }
 
     /// If non-zero, overrides the timeout interval for any network resources retrieved by this operation.
     /// See NSURLSessionConfiguration.timeoutIntervalForResource
-    @available(iOS 10.0, tvOS 10.0, OSX 10.12, watchOS 3.0, *)
     var timeoutIntervalForResource: TimeInterval { get set }
 }
 
@@ -151,23 +143,18 @@ extension CKOperation: CKOperationProtocol {
     public typealias QueryCursor = CKQueryOperation.Cursor
 
     /// The UserIdentity is a CKUserIdentity
-    @available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *)
     public typealias UserIdentity = CKUserIdentity
 
     /// The UserIdentityLookupInfo is a CKUserIdentityLookupInfo
-    @available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *)
     public typealias UserIdentityLookupInfo = CKUserIdentity.LookupInfo
 
     /// The Share is a CKShare
-    @available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *)
     public typealias Share = CKShare
 
     /// The ShareMetadata is a CKShareMetadata
-    @available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *)
     public typealias ShareMetadata = CKShare.Metadata
 
     /// The ShareParticipant is a CKShareParticipant
-    @available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *)
     public typealias ShareParticipant = CKShare.Participant
 
     public typealias LongLivedOperationWasPersistedBlockType = (() -> Void)?
@@ -185,13 +172,11 @@ extension CKProcedure {
         set { operation.allowsCellularAccess = newValue }
     }
 
-    @available(iOS 9.3, tvOS 9.3, OSX 10.12, watchOS 2.3, *)
     public var operationID: String {
         get { return operation.operationID }
     }
 
     #if swift(>=3.2)
-        @available(iOS 9.3, tvOS 9.3, OSX 10.12, watchOS 2.3, *)
         public var isLongLived: Bool {
             get { return operation.isLongLived }
             set { operation.isLongLived = newValue }
@@ -201,26 +186,22 @@ extension CKProcedure {
         @available(*, unavailable, renamed: "isLongLived")
         public var longLived: Bool { fatalError("Use isLongLived") }
     #else // Swift < 3.2 (Xcode 8.x)
-        @available(iOS 9.3, tvOS 9.3, OSX 10.12, watchOS 2.3, *)
         public var longLived: Bool {
             get { return operation.longLived }
             set { operation.longLived = newValue }
         }
     #endif
 
-    @available(iOS 9.3, tvOS 9.3, OSX 10.12, watchOS 2.3, *)
     public var longLivedOperationWasPersistedBlock: T.LongLivedOperationWasPersistedBlockType {
         get { return operation.longLivedOperationWasPersistedBlock }
         set { operation.longLivedOperationWasPersistedBlock = newValue }
     }
 
-    @available(iOS 10.0, tvOS 10.0, OSX 10.12, watchOS 3.0, *)
     public var timeoutIntervalForRequest: TimeInterval {
         get { return operation.timeoutIntervalForRequest }
         set { operation.timeoutIntervalForRequest = newValue }
     }
 
-    @available(iOS 10.0, tvOS 10.0, OSX 10.12, watchOS 3.0, *)
     public var timeoutIntervalForResource: TimeInterval {
         get { return operation.timeoutIntervalForResource }
         set { operation.timeoutIntervalForResource = newValue }
@@ -248,14 +229,12 @@ extension CloudKitProcedure {
     }
 
     /// - returns a unique identifier for a long-lived CKOperation
-    @available(iOS 9.3, tvOS 9.3, OSX 10.12, watchOS 2.3, *)
     public var operationID: String {
         get { return current.operationID }
     }
 
     #if swift(>=3.2)
         /// - returns whether the operation is long-lived
-        @available(iOS 9.3, tvOS 9.3, OSX 10.12, watchOS 2.3, *)
         public var isLongLived: Bool {
             get { return current.isLongLived }
             set {
@@ -269,7 +248,6 @@ extension CloudKitProcedure {
         public var longLived: Bool { fatalError("Use isLongLived") }
     #else // Swift < 3.2 (Xcode 8.x)
         /// - returns whether the operation is long-lived
-        @available(iOS 9.3, tvOS 9.3, OSX 10.12, watchOS 2.3, *)
         public var longLived: Bool {
             get { return current.longLived }
             set {
@@ -280,7 +258,6 @@ extension CloudKitProcedure {
     #endif
 
     /// - returns the block to execute when the server starts storing callbacks for this long-lived CKOperation
-    @available(iOS 9.3, tvOS 9.3, OSX 10.12, watchOS 2.3, *)
     public var longLivedOperationWasPersistedBlock: T.LongLivedOperationWasPersistedBlockType {
         get { return current.longLivedOperationWasPersistedBlock }
         set {
@@ -291,7 +268,6 @@ extension CloudKitProcedure {
 
     /// If non-zero, overrides the timeout interval for any network requests issued by this operation.
     /// See NSURLSessionConfiguration.timeoutIntervalForRequest
-    @available(iOS 10.0, tvOS 10.0, OSX 10.12, watchOS 3.0, *)
     public var timeoutIntervalForRequest: TimeInterval {
         get { return current.timeoutIntervalForRequest }
         set {
@@ -302,7 +278,6 @@ extension CloudKitProcedure {
 
     /// If non-zero, overrides the timeout interval for any network resources retrieved by this operation.
     /// See NSURLSessionConfiguration.timeoutIntervalForResource
-    @available(iOS 10.0, tvOS 10.0, OSX 10.12, watchOS 3.0, *)
     public var timeoutIntervalForResource: TimeInterval {
         get { return current.timeoutIntervalForResource }
         set {

@@ -8,7 +8,6 @@ import Foundation
 #if canImport(os)
 import os
 
-@available(iOS 12.0, tvOS 12.0, watchOS 5.0, OSX 10.14, *)
 public final class SignpostObserver<Procedure: ProcedureProtocol> {
 
     public let log: OSLog
@@ -26,7 +25,6 @@ public final class SignpostObserver<Procedure: ProcedureProtocol> {
     }
 }
 
-@available(iOS 12.0, tvOS 12.0, watchOS 5.0, OSX 10.14, *)
 extension SignpostObserver: ProcedureObserver {
 
     public func will(execute procedure: Procedure, pendingExecute: PendingExecuteEvent) {

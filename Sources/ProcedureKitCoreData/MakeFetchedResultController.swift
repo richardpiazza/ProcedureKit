@@ -4,11 +4,8 @@
 //  Copyright © 2015-2018 ProcedureKit. All rights reserved.
 //
 
-#if SWIFT_PACKAGE
 import ProcedureKit
 import Foundation
-#endif
-
 import CoreData
 
 /**
@@ -21,7 +18,6 @@ import CoreData
      .injectResult(from: coreDataStack)
  ```
  */
-@available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *)
 open class MakeFetchedResultControllerProcedure<Result: NSFetchRequestResult>: TransformProcedure<NSPersistentContainer, NSFetchedResultsController<Result>> {
 
     static func transform(fetchRequest: NSFetchRequest<Result>, sectionNameKeyPath: String? = nil, cacheName: String? = nil) -> (NSPersistentContainer) throws -> NSFetchedResultsController<Result> {
@@ -57,7 +53,6 @@ open class MakeFetchedResultControllerProcedure<Result: NSFetchRequestResult>: T
     }
 }
 
-@available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *)
 public extension MakeFetchedResultControllerProcedure where Result: NSManagedObject {
 
     convenience init(fetchLimit: Int = 50, sortDescriptors: [NSSortDescriptor] = [], sectionNameKeyPath: String? = nil, cacheName: String? = nil) {

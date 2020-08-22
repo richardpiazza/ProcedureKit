@@ -11,6 +11,7 @@ import TestingProcedureKit
 import Foundation
 @testable import ProcedureKitMac
 
+#if os(macOS)
 class ProcessProcedureTests: ProcedureKitTestCase {
 
     var process: Process!
@@ -376,6 +377,10 @@ extension Process.TerminationReason: CustomStringConvertible {
         switch self {
         case .exit: return ".exit"
         case .uncaughtSignal: return ".uncaughtSignal"
+        @unknown default:
+            return ".unknown"
         }
     }
 }
+
+#endif

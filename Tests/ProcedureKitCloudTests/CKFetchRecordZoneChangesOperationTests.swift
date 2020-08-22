@@ -174,12 +174,7 @@ class CloudKitProcedureFetchRecordZoneChangesOperationTests: CKProcedureTestCase
         cloudkit.previousServerChangeToken = token
         cloudkit.resultsLimit = 10
         cloudkit.recordZoneIDs = [ "record zone 1 id", "record zone 2 id" ]
-        if #available(iOS 12.0, OSX 10.14, tvOS 12.0, watchOS 5.0, *) {
-            cloudkit.configurationsByRecordZoneID = [ "record zone 1 id": "configuration 1", "record zone 2 id": "configuration 2" ]
-        }
-        else if #available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *) {
-            cloudkit.optionsByRecordZoneID = [ "record zone 1 id": "option 1", "record zone 2 id": "option 2" ]
-        }
+        cloudkit.configurationsByRecordZoneID = [ "record zone 1 id": "configuration 1", "record zone 2 id": "configuration 2" ]
         cloudkit.fetchAllChanges = false
         cloudkit.recordChangedBlock = { [unowned self] record in
             self.setByRecordChangedBlock = record
@@ -244,7 +239,6 @@ class CloudKitProcedureFetchRecordZoneChangesOperationTests: CKProcedureTestCase
         XCTAssertEqual(cloudkit.optionsByRecordZoneID ?? [:], [ "record zone 1 id": "option 1", "record zone 2 id": "option 2" ])
     }
 
-    @available(iOS 12.0, OSX 10.14, tvOS 12.0, watchOS 5.0, *)
     func test__set_get_configurationsByRecordZoneID() {
         cloudkit.configurationsByRecordZoneID = [ "record zone 1 id": "configuration 1", "record zone 2 id": "configuration 2" ]
         XCTAssertEqual(cloudkit.configurationsByRecordZoneID ?? [:], [ "record zone 1 id": "configuration 1", "record zone 2 id": "configuration 2" ])

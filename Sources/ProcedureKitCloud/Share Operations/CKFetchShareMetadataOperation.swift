@@ -4,11 +4,8 @@
 //  Copyright © 2015-2018 ProcedureKit. All rights reserved.
 //
 
-#if SWIFT_PACKAGE
-    import ProcedureKit
-    import Foundation
-#endif
-
+import ProcedureKit
+import Foundation
 import CloudKit
 
 /// A generic protocol which exposes the properties used by Apple's CKFetchShareMetadataOperation.
@@ -36,7 +33,6 @@ public protocol CKFetchShareMetadataOperationProtocol: CKOperationProtocol {
     var fetchShareMetadataCompletionBlock: ((Error?) -> Void)? { get set }
 }
 
-@available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *)
 extension CKFetchShareMetadataOperation: CKFetchShareMetadataOperationProtocol, AssociatedErrorProtocol {
 
     // The associated error type

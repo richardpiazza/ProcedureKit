@@ -4,10 +4,10 @@
 //  Copyright © 2015-2018 ProcedureKit. All rights reserved.
 //
 
+import ProcedureKit
 import Foundation
-#if canImport(UIKit)
+#if canImport(UIKit) && !os(watchOS)
 import UIKit
-
 
 /**
  The condition succeeds if the user's response to the shown alert
