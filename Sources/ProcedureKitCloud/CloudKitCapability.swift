@@ -6,7 +6,7 @@
 
 import ProcedureKit
 import Foundation
-
+#if canImport(CloudKit)
 import CloudKit
 
 /**
@@ -16,7 +16,7 @@ import CloudKit
 
  CloudKit has a relatively convoluted status API.
 
- First, we must check the user's accout status, i.e. are
+ First, we must check the user's account status, i.e. are
  they logged in to iCloud.
 
  Next, we check the status for the application permissions.
@@ -125,3 +125,5 @@ extension Capability {
         }
     }
 }
+
+#endif

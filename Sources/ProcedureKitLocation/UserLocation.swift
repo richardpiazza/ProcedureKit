@@ -6,9 +6,8 @@
 
 import ProcedureKit
 import Foundation
-
-import Foundation
 import Dispatch
+#if canImport(CoreLocation) && canImport(MapKit)
 import CoreLocation
 import MapKit
 
@@ -100,3 +99,5 @@ open class UserLocationProcedure: Procedure, OutputProcedure, CLLocationManagerD
         }
     }
 }
+
+#endif

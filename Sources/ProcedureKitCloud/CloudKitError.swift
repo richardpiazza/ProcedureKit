@@ -6,7 +6,7 @@
 
 import ProcedureKit
 import Foundation
-
+#if canImport(CloudKit)
 import CloudKit
 
 /// An error protocol for CloudKit errors.
@@ -60,3 +60,5 @@ public protocol CloudKitBatchProcessError: CloudKitError {
 public struct PKCKError: CloudKitError {
     public let underlyingError: Error
 }
+
+#endif

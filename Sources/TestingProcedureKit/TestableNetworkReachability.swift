@@ -4,10 +4,11 @@
 //  Copyright © 2015-2018 ProcedureKit. All rights reserved.
 //
 
-import Foundation
-import SystemConfiguration
-import XCTest
 import ProcedureKit
+import Foundation
+import XCTest
+#if canImport(SystemConfiguration)
+import SystemConfiguration
 
 public class TestableNetworkReachability {
     typealias Reachability = String
@@ -81,3 +82,5 @@ extension TestableNetworkReachability: NetworkReachability {
         didStopNotifier = true
     }
 }
+
+#endif

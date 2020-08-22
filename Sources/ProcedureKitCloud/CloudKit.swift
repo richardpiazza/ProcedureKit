@@ -6,8 +6,8 @@
 
 import ProcedureKit
 import Foundation
-
 import Dispatch
+#if canImport(CloudKit)
 import CloudKit
 
 /**
@@ -284,3 +284,5 @@ public final class CloudKitProcedure<T: Operation>: RetryProcedure<CKProcedure<T
         recovery.set(finallyConfigureRetryOperationBlock: block)
     }
 }
+
+#endif

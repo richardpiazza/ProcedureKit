@@ -6,6 +6,7 @@
 
 import ProcedureKit
 import Foundation
+#if canImport(CoreData)
 import CoreData
 
 protocol ManagedObjectContextProcessing: class {
@@ -42,3 +43,5 @@ internal final class ProcessManagedObjectContext: GroupProcedure {
         super.init(dispatchQueue: underlyingQueue, operations: operations)
     }
 }
+
+#endif

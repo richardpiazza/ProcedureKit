@@ -6,8 +6,8 @@
 
 import ProcedureKit
 import Foundation
-
 import Dispatch
+#if canImport(CoreLocation) && canImport(MapKit)
 import CoreLocation
 import MapKit
 
@@ -138,3 +138,5 @@ extension CLGeocoder: ReverseGeocodeProtocol {
         reverseGeocodeLocation(location, completionHandler: completion)
     }
 }
+
+#endif

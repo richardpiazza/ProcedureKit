@@ -6,10 +6,11 @@
 
 import ProcedureKit
 import Foundation
+#if canImport(CoreData)
 import CoreData
 
 /**
- Makes a FetchResultsController, using the viewContext from a NSPersistenContainer
+ Makes a FetchResultsController, using the viewContext from a NSPersistentContainer
  which is injected before execution, but after initialization. For example:
 
  ```swift
@@ -60,5 +61,4 @@ public extension MakeFetchedResultControllerProcedure where Result: NSManagedObj
     }
 }
 
-
-
+#endif

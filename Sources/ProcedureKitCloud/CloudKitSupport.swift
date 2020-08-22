@@ -6,7 +6,7 @@
 
 import ProcedureKit
 import Foundation
-
+#if canImport(CloudKit)
 import CloudKit
 
 protocol CloudKitContainerRegistrar {
@@ -32,3 +32,5 @@ extension CKContainer: CloudKitContainerRegistrar {
         requestApplicationPermission(applicationPermission, completionHandler: completionHandler)
     }
 }
+
+#endif

@@ -6,7 +6,7 @@
 
 import ProcedureKit
 import Foundation
-#if !os(watchOS)
+#if canImport(SystemConfiguration) && !os(watchOS)
 import SystemConfiguration
 
 public protocol NetworkResilience {
@@ -22,7 +22,7 @@ public protocol NetworkResilience {
 
     /**
      The timeout backoff wait strategy defines the time between
-     retry attempts in the event of a network timout.
+     retry attempts in the event of a network timeout.
      Use `.Immediate` to indicate no time between retry attempts.
 
      - returns: a WaitStrategy

@@ -163,7 +163,7 @@ public extension ProcedureProtocol {
             }
         }
 
-        add(dependency: dependency)
+        addDependency(dependency)
 
         return self
     }

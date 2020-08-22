@@ -6,6 +6,7 @@
 
 import ProcedureKit
 import Foundation
+#if canImport(CoreData)
 import CoreData
 
 // MARK: - Internal Core Data Helpers
@@ -54,3 +55,5 @@ internal extension NSManagedObjectContext {
         return try _helper(fn: performAndWait(_:), execute: block, rescue: { throw $0 })
     }
 }
+
+#endif

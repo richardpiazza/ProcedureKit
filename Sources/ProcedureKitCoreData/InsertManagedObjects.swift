@@ -6,6 +6,7 @@
 
 import ProcedureKit
 import Foundation
+#if canImport(CoreData)
 import CoreData
 
 /**
@@ -115,3 +116,5 @@ open class InsertManagedObjectsProcedure<Item, ManagedObject>: GroupProcedure, I
         bind(from: insert)
     }
 }
+
+#endif

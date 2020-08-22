@@ -6,6 +6,7 @@
 
 import ProcedureKit
 import Foundation
+#if canImport(CoreData)
 import CoreData
 
 /**
@@ -98,3 +99,4 @@ open class LoadCoreDataProcedure: Procedure, OutputProcedure {
     }
 }
 
+#endif

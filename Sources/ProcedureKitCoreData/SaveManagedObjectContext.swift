@@ -6,11 +6,12 @@
 
 import ProcedureKit
 import Foundation
+#if canImport(CoreData)
 import CoreData
 
 /**
  This procedure will save a NSManagedObjectContext. It can be used directly, if the
- context is available at initializaton, via:
+ context is available at initialization, via:
 
  ```swift
  queue.add(operation: SaveManagedObjectContext(managedObjectContext))
@@ -61,3 +62,5 @@ open class SaveManagedObjectContext: AsyncTransformProcedure<NSManagedObjectCont
         }
     }
 }
+
+#endif

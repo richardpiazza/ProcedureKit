@@ -6,6 +6,9 @@
 
 import ProcedureKit
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 // MARK: - URLSession
 

@@ -6,7 +6,7 @@
 
 import ProcedureKit
 import Foundation
-
+#if canImport(CoreLocation) && canImport(MapKit)
 import CoreLocation
 import MapKit
 
@@ -86,3 +86,5 @@ public extension Capability {
         }
     }
 }
+
+#endif

@@ -6,7 +6,7 @@
 
 import ProcedureKit
 import Foundation
-
+#if canImport(CloudKit)
 import CloudKit
 
 /**
@@ -255,3 +255,5 @@ extension CloudKitProcedure {
         }
     }
 }
+
+#endif

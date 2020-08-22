@@ -6,6 +6,7 @@
 
 import ProcedureKit
 import Foundation
+#if canImport(CloudKit)
 import CloudKit
 
 /// A generic protocol which exposes the properties used by Apple's CloudKit Operation's which have a flag to fetch all changes.
@@ -144,3 +145,5 @@ extension CloudKitProcedure where T: CKFetchDatabaseChangesOperationProtocol {
         appendConfigureBlock { $0.setFetchDatabaseChangesCompletionBlock(block) }
     }
 }
+
+#endif

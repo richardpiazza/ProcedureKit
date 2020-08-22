@@ -5,10 +5,9 @@
 //
 
 #if !os(watchOS)
-
 import ProcedureKit
 import Foundation
-
+#if canImport(CloudKit)
 import CloudKit
 
 /// A generic protocol which exposes the properties used by Apple's CKModifySubscriptionsOperation.
@@ -96,4 +95,5 @@ extension CloudKitProcedure where T: CKModifySubscriptionsOperationProtocol {
     }
 }
 
-#endif
+#endif // CloudKit
+#endif // !os(watchOS)

@@ -6,6 +6,7 @@
 
 import ProcedureKit
 import Foundation
+#if canImport(CloudKit)
 import CloudKit
 
 /// A generic protocol which exposes the properties used by Apple's CKFetchRecordZonesOperation.
@@ -74,3 +75,5 @@ extension CloudKitProcedure where T: CKFetchRecordZonesOperationProtocol {
         appendConfigureBlock { $0.setFetchRecordZonesCompletionBlock(block) }
     }
 }
+
+#endif

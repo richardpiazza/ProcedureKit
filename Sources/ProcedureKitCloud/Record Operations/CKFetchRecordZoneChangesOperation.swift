@@ -6,6 +6,7 @@
 
 import ProcedureKit
 import Foundation
+#if canImport(CloudKit)
 import CloudKit
 
 /// A generic protocol which exposes the properties used by Apple's CKFetchRecordZoneChangesOperation.
@@ -14,7 +15,7 @@ public protocol CKFetchRecordZoneChangesOperationProtocol: CKDatabaseOperationPr
     /// The type of the CloudKit FetchRecordZoneChangesOptions
     associatedtype FetchRecordZoneChangesOptions
 
-    /// The type of the CloudKit FetchRecordZoneCHangesConfiguration
+    /// The type of the CloudKit FetchRecordZoneChangesConfiguration
     associatedtype FetchRecordZoneChangesConfiguration
 
     /// The type of the recordZoneIDs property
@@ -220,3 +221,5 @@ extension CloudKitProcedure where T: CKFetchRecordZoneChangesOperationProtocol {
         appendConfigureBlock { $0.setFetchRecordZoneChangesCompletionBlock(block) }
     }
 }
+
+#endif

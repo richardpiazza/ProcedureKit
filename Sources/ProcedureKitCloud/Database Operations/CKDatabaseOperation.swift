@@ -6,6 +6,7 @@
 
 import ProcedureKit
 import Foundation
+#if canImport(CloudKit)
 import CloudKit
 
 /**
@@ -168,3 +169,5 @@ public typealias CKBatchedOperation = CKResultsLimit & CKMoreComing
 
 /// A protocol typealias which exposes the properties used by Apple's CloudKit fetched operation types.
 public typealias CKFetchOperation = CKPreviousServerChangeToken & CKBatchedOperation
+
+#endif

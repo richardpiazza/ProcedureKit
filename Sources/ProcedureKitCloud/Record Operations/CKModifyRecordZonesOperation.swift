@@ -6,6 +6,7 @@
 
 import ProcedureKit
 import Foundation
+#if canImport(CloudKit)
 import CloudKit
 
 /// A generic protocol which exposes the properties used by Apple's CKModifyRecordZonesOperation.
@@ -94,3 +95,5 @@ extension CloudKitProcedure where T: CKModifyRecordZonesOperationProtocol {
         appendConfigureBlock { $0.setModifyRecordZonesCompletionBlock(block) }
     }
 }
+
+#endif

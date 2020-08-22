@@ -48,11 +48,15 @@ public protocol ProcedureProtocol: class {
 
     // Observers
 
+    @available(*, deprecated, renamed: "addObserver(_:)", message: "This has been renamed to use Swift 3/4 naming conventions")
     func add<Observer: ProcedureObserver>(observer: Observer) where Observer.Procedure == Self
+    func addObserver<Observer>(_ observer: Observer) where Observer: ProcedureObserver, Observer.Procedure: Procedure
 
     // Dependencies
 
+    @available(*, deprecated, renamed: "addDependency(_:)", message: "This has been renamed to use Swift 3/4 naming conventions")
     func add<Dependency: ProcedureProtocol>(dependency: Dependency)
+    func addDependency<Dependency: ProcedureProtocol>(_ dependency: Dependency)
 }
 
 

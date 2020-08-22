@@ -6,6 +6,7 @@
 
 import ProcedureKit
 import Foundation
+#if canImport(CoreData)
 import CoreData
 
 /**
@@ -40,4 +41,4 @@ extension NSPersistentStoreCoordinator: MakesBackgroundManagedObjectContext {
     }
 }
 
-
+#endif
