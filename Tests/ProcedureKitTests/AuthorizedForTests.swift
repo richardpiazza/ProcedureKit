@@ -1,87 +1,29 @@
 //
 //  ProcedureKit
 //
-//  Copyright © 2015-2018 ProcedureKit. All rights reserved.
+//  Copyright © 2015-2020 ProcedureKit. All rights reserved.
 //
 
 import XCTest
 import TestingProcedureKit
 @testable import ProcedureKit
 
-class GetAuthorizationStatusTests: TestableCapabilityTestCase {
-
-    func test__sets_result() {
-        wait(for: getAuthorizationStatus)
-        XCTAssertGetAuthorizationStatus(getAuthorizationStatus.output.success, expected: (true, .unknown))
-        XCTAssertTestCapabilityStatusChecked()
-    }
-
-    func test__async_sets_result() {
-        capability.isAsynchronous = true
-        wait(for: getAuthorizationStatus)
-        XCTAssertGetAuthorizationStatus(getAuthorizationStatus.output.success, expected: (true, .unknown))
-        XCTAssertTestCapabilityStatusChecked()
-    }
-
-    func test__runs_completion_block() {
-        var completedWithResult: GetAuthorizationStatusProcedure<TestableCapability.Status>.Output = (false, .unknown)
-        getAuthorizationStatus = GetAuthorizationStatusProcedure(capability) { completedWithResult = $0 }
-
-        wait(for: getAuthorizationStatus)
-        XCTAssertGetAuthorizationStatus(completedWithResult, expected: (true, .unknown))
-        XCTAssertTestCapabilityStatusChecked()
-    }
-
-    func test__async_runs_completion_block() {
-        capability.isAsynchronous = true
-        var completedWithResult: GetAuthorizationStatusProcedure<TestableCapability.Status>.Output = (false, .unknown)
-
-        getAuthorizationStatus = GetAuthorizationStatusProcedure(capability) { result in
-            completedWithResult = result
-        }
-
-        wait(for: getAuthorizationStatus)
-        XCTAssertGetAuthorizationStatus(completedWithResult, expected: (true, .unknown))
-        XCTAssertTestCapabilityStatusChecked()
-    }
-
-    func test__void_status_equal() {
-        XCTAssertEqual(Capability.VoidStatus(), Capability.VoidStatus())
-    }
-
-    func test__void_status_meets_requirements() {
-        XCTAssertTrue(Capability.VoidStatus().meets(requirement: ()))
-    }
-}
-
-class AuthorizeTests: TestableCapabilityTestCase {
-
-    func test__authorize() {
-        wait(for: authorize)
-        XCTAssertTrue(capability.didRequestAuthorization)
-    }
-
-    func test__authorize_procedure_is_mutually_exclusive() {
-        // AuthorizeCapabilityProcedure should have a condition that is:
-        //  MutuallyExclusive<AuthorizeCapabilityProcedure<TestableCapability.Status>>
-        // with a mutually exclusive category of: 
-        //  "AuthorizeCapabilityProcedure(TestableCapability)"
-
-        var foundMutuallyExclusiveCondition = false
-        for condition in authorize.conditions {
-            guard condition.isMutuallyExclusive else { continue }
-            guard condition is MutuallyExclusive<AuthorizeCapabilityProcedure<TestableCapability.Status>> else { continue }
-            guard condition.mutuallyExclusiveCategories == ["AuthorizeCapabilityProcedure(TestableCapability)"] else { continue }
-            foundMutuallyExclusiveCondition = true
-            break
-        }
-
-        XCTAssertTrue(foundMutuallyExclusiveCondition, "Failed to find appropriate Mutual Exclusivity condition")
-    }
-}
-
 class AuthorizedForTests: TestableCapabilityTestCase {
 
+    static var allTests = [
+        ("test__is_not_mututally_exclusive_by_default", test__is_not_mututally_exclusive_by_default),
+        ("test__default_mututally_exclusive_category", test__default_mututally_exclusive_category),
+        ("test__custom_mututally_exclusive_category", test__custom_mututally_exclusive_category),
+        ("test__has_authorize_dependency", test__has_authorize_dependency),
+        ("test__fails_if_capability_is_not_available", test__fails_if_capability_is_not_available),
+        ("test__async_fails_if_capability_is_not_available", test__async_fails_if_capability_is_not_available),
+        ("test__fails_if_requirement_is_not_met", test__fails_if_requirement_is_not_met),
+        ("test__async_fails_if_requirement_is_not_met", test__async_fails_if_requirement_is_not_met),
+        ("test__suceeds_if_requirement_is_met", test__suceeds_if_requirement_is_met),
+        ("test__async_suceeds_if_requirement_is_met", test__async_suceeds_if_requirement_is_met),
+        ("test__negated_authorized_for_and_no_failed_dependencies_succeeds", test__negated_authorized_for_and_no_failed_dependencies_succeeds),
+    ]
+    
     func test__is_not_mututally_exclusive_by_default() {
         // the AuthorizedFor condition itself does not confer mutual exclusivity by default
         XCTAssertFalse(authorizedFor.isMutuallyExclusive)
@@ -178,4 +120,3 @@ class AuthorizedForTests: TestableCapabilityTestCase {
         PKAssertProcedureFinished(procedure)
     }
 }
-

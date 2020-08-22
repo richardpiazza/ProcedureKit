@@ -10,7 +10,13 @@ import TestingProcedureKit
 
 class BlockConditionTests: ProcedureKitTestCase {
 
-    func test__procedure_with_successfull_block_finishes() {
+    static var allTests = [
+        ("test__procedure_with_successful_block_finishes", test__procedure_with_successful_block_finishes),
+        ("test__procedure_with_unsuccessful_block_cancels_without_errors", test__procedure_with_unsuccessful_block_cancels_without_errors),
+        ("test__procedure_with_throwing_block_cancels_with_error", test__procedure_with_throwing_block_cancels_with_error),
+    ]
+    
+    func test__procedure_with_successful_block_finishes() {
         procedure.addCondition(BlockCondition { true })
         wait(for: procedure)
         PKAssertProcedureFinished(procedure)

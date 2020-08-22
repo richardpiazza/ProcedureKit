@@ -8,9 +8,22 @@ import XCTest
 import TestingProcedureKit
 @testable import ProcedureKit
 
-
 class CancellationTests: ProcedureKitTestCase {
 
+    static var allTests = [
+        ("test__procedure_cancel_with_nil_error", test__procedure_cancel_with_nil_error),
+        ("test__procedure_cancel_with_error", test__procedure_cancel_with_error),
+        ("test__procedure_did_cancel_called_after_cancelled", test__procedure_did_cancel_called_after_cancelled),
+        ("test__procedured_cancelled_before_running_is_not_set_to_finished_until_started", test__procedured_cancelled_before_running_is_not_set_to_finished_until_started),
+        ("test__procedure_with_disables_automatic_finishing_does_not_finish_automatically_when_cancelled", test__procedure_with_disables_automatic_finishing_does_not_finish_automatically_when_cancelled),
+        ("test__procedure_cancelled_then_finished_from_within_execute", test__procedure_cancelled_then_finished_from_within_execute),
+        ("test__procedure_cancelled_then_finished_async_during_execute", test__procedure_cancelled_then_finished_async_during_execute),
+        ("test__procedure_finished_then_cancelled_from_within_execute", test__procedure_finished_then_cancelled_from_within_execute),
+        ("test__procedure_finished_then_cancelled_async_during_execute", test__procedure_finished_then_cancelled_async_during_execute),
+        ("test__cancel_from_didcancel_observer_is_ignored", test__cancel_from_didcancel_observer_is_ignored),
+        ("test__cancel_from_willfinish_observer_is_ignored", test__cancel_from_willfinish_observer_is_ignored),
+    ]
+    
     func test__procedure_cancel_with_nil_error() {
         procedure.cancel(with: nil)
         XCTAssertFalse(procedure.didExecute)

@@ -10,7 +10,7 @@ import TestingProcedureKit
 
 #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
 class KVOTests: ProcedureKitTestCase {
-
+    
     class NSOperationKVOObserver: NSObject {
 
         let operation: Operation

@@ -10,6 +10,12 @@ import TestingProcedureKit
 
 public class ComposedProcedureTests: ProcedureKitTestCase {
 
+    static var allTests = [
+        ("test__composed_procedure_is_cancelled", test__composed_procedure_is_cancelled),
+        ("test__composed_operation_is_executed", test__composed_operation_is_executed),
+        ("test__composed_procedure_is_executed", test__composed_procedure_is_executed),
+    ]
+    
     func test__composed_procedure_is_cancelled() {
         let didCancelCalled = DispatchSemaphore(value: 0)
         procedure.addDidCancelBlockObserver { _, _ in
@@ -39,20 +45,3 @@ public class ComposedProcedureTests: ProcedureKitTestCase {
         PKAssertProcedureFinished(procedure)
     }
 }
-
-public class GatedProcedureTests: ProcedureKitTestCase {
-
-    func test__when_gate_is_closed_procedure_is_cancelled() {
-        let gated = GatedProcedure(procedure) { false }
-        wait(for: gated)
-        PKAssertProcedureCancelled(gated)
-    }
-
-    func test__when_gate_is_open_procedure_is_performed() {
-        let gated = GatedProcedure(procedure) { true }
-        wait(for: gated)
-        PKAssertProcedureFinished(gated)
-        PKAssertProcedureFinished(procedure)
-    }
-}
-

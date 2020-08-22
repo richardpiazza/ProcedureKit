@@ -10,6 +10,18 @@ import TestingProcedureKit
 
 class DelayProcedureTests: ProcedureKitTestCase {
 
+    static var allTests = [
+        ("test__with_interval_name", test__with_interval_name),
+        ("test__with_date_name", test__with_date_name),
+        ("test__with_negative_time_interval_finishes_immediately", test__with_negative_time_interval_finishes_immediately),
+        ("test__with_distant_past_finishes_immediately", test__with_distant_past_finishes_immediately),
+        ("test__completes_after_interval", test__completes_after_interval),
+        ("test__timer_is_not_fired_when_cancelled", test__timer_is_not_fired_when_cancelled),
+        ("test__timer_cancelled_after_execute_finishes_immediately", test__timer_cancelled_after_execute_finishes_immediately),
+        ("test__inject_delay_from_procedure_outputing_delay", test__inject_delay_from_procedure_outputing_delay),
+        ("test__inject_delay_from_procedure_outputing_interval", test__inject_delay_from_procedure_outputing_interval),
+    ]
+    
     func test__with_interval_name() {
         let delay = DelayProcedure(by: 1)
         XCTAssertEqual(delay.name, "Delay for 1.0 seconds")

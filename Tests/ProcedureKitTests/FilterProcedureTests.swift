@@ -10,6 +10,13 @@ import TestingProcedureKit
 
 class FilterProcedureTests: ProcedureKitTestCase {
 
+    static var allTests = [
+        ("test__requirement_is_filtered_to_result", test__requirement_is_filtered_to_result),
+        ("test__finishes_with_error_if_block_throws", test__finishes_with_error_if_block_throws),
+        ("test__filter_dependency_which_finishes_without_errors", test__filter_dependency_which_finishes_without_errors),
+        ("test__filter_dependency_which_finishes_with_errors", test__filter_dependency_which_finishes_with_errors),
+    ]
+    
     func test__requirement_is_filtered_to_result() {
         let functional = FilterProcedure(source: [0,1,2,3,4,5,6,7]) { $0 % 2 == 0 }
         wait(for: functional)

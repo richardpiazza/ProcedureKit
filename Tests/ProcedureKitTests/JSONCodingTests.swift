@@ -10,6 +10,11 @@ import TestingProcedureKit
 
 class JSONEncodingTests: ProcedureKitTestCase {
 
+    static var allTests = [
+        ("test__coding_single_item", test__coding_single_item),
+        ("test__coding_array_items", test__coding_array_items),
+    ]
+    
     struct Person: Equatable, Codable {
         let firstName: String
         let lastName: String

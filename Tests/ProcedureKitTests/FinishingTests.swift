@@ -10,6 +10,18 @@ import TestingProcedureKit
 
 class FinishingTests: ProcedureKitTestCase {
 
+    static var allTests = [
+        ("test__procedure_will_finish_is_called", test__procedure_will_finish_is_called),
+        ("test__procedure_did_finish_is_called", test__procedure_did_finish_is_called),
+        ("test__procedure_with_disabled_automatic_finishing_manual_cancel_and_finish_on_will_execute_does_not_result_in_invalid_state_transition_to_executing", test__procedure_with_disabled_automatic_finishing_manual_cancel_and_finish_on_will_execute_does_not_result_in_invalid_state_transition_to_executing),
+        ("test__cancelled_procedure_finish_called_before_execute_eventually_finishes", test__cancelled_procedure_finish_called_before_execute_eventually_finishes),
+        ("test__cancelled_procedure_finish_called_before_execute_only_first_finish_succeeds", test__cancelled_procedure_finish_called_before_execute_only_first_finish_succeeds),
+        ("test__cancelled_procedure_finish_before_execute_from_didcancel_observer", test__cancelled_procedure_finish_before_execute_from_didcancel_observer),
+        ("test__procedure_finish_from_willexecute_observer", test__procedure_finish_from_willexecute_observer),
+        ("test__procedure_finish_after_cancel_from_willexecute_observer", test__procedure_finish_after_cancel_from_willexecute_observer),
+        ("test__finish_from_willfinish_observer_is_ignored", test__finish_from_willfinish_observer_is_ignored),
+    ]
+    
     func test__procedure_will_finish_is_called() {
         wait(for: procedure)
         XCTAssertTrue(procedure.procedureWillFinishCalled)
@@ -144,32 +156,5 @@ class FinishingTests: ProcedureKitTestCase {
 
         wait(for: procedure)
         PKAssertProcedureFinished(procedure)
-    }
-}
-
-class FinishingConcurrencyTests: ProcedureKitTestCase {
-
-    func test__finish_on_other_thread_synchronously_from_execute() {
-        // This test should not result in deadlock.
-
-        class TestFinishSyncFromExecuteProcedure: Procedure {
-            override init() {
-                super.init()
-                self.name = "TestFinishSyncFromExecuteProcedure"
-            }
-            override func execute() {
-                guard !Thread.current.isMainThread else { fatalError("Procedure's execute() is on main thread.") }
-                DispatchQueue.main.sync {
-                    assert(Thread.current.isMainThread)
-                    finish()
-                }
-            }
-        }
-
-        let procedure = TestFinishSyncFromExecuteProcedure()
-        wait(for: procedure, withTimeout: 3, handler: { (error) in
-            XCTAssertNil(error)
-        })
-        XCTAssertTrue(procedure.isFinished)
     }
 }
