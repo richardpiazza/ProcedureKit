@@ -29,7 +29,7 @@ open class TestProcedure: Procedure, InputProcedure, OutputProcedure {
     public let producedOperation: Operation?
     public var input: Pending<String> = .pending
     public var output: Pending<ProcedureResult<String>> = .ready(.success("Hello World"))
-    public private(set) var executedAt: CFAbsoluteTime {
+    public private(set) var executedAt: TimeInterval {
         get { return protected.read { $0.executedAt } }
         set { protected.write { $0.executedAt = newValue } }
     }
@@ -50,7 +50,7 @@ open class TestProcedure: Procedure, InputProcedure, OutputProcedure {
         set { protected.write { $0.procedureDidCancelCalled = newValue } }
     }
     private class ProtectedProperties {
-        var executedAt: CFAbsoluteTime = 0
+        var executedAt: TimeInterval = 0
         var didExecute = false
         var procedureWillFinishCalled = false
         var procedureDidFinishCalled = false
@@ -68,7 +68,7 @@ open class TestProcedure: Procedure, InputProcedure, OutputProcedure {
 
     open override func execute() {
 
-        executedAt = CFAbsoluteTimeGetCurrent()
+        executedAt = Date().timeIntervalSince1970
 
         if let input = input.value {
             output = .ready(.success("Hello \(input)"))

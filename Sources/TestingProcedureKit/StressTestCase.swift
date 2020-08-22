@@ -9,7 +9,7 @@ import Foundation
 import XCTest
 
 public protocol BatchProtocol {
-    var startTime: CFAbsoluteTime { get }
+    var startTime: TimeInterval { get }
     var dispatchGroup: DispatchGroup { get }
     var queue: ProcedureQueue { get }
     var number: Int { get }
@@ -30,7 +30,7 @@ public extension BatchProtocol {
 }
 
 open class Batch: BatchProtocol {
-    public let startTime = CFAbsoluteTimeGetCurrent()
+    public let startTime = Date().timeIntervalSince1970
     public let dispatchGroup = DispatchGroup()
     public let queue: ProcedureQueue
     public let number: Int
@@ -98,11 +98,17 @@ open class StressTestCase: GroupTestCase {
 
         public func forEach(body: (Int, Int) throws -> Void) rethrows {
             try (0..<batches).forEach { batch in
+                #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
                 try autoreleasepool {
                     try (0..<batchSize).forEach { iteration in
                         try body(batch, iteration)
                     }
                 } // End of autorelease
+                #else
+                try (0..<batchSize).forEach { iteration in
+                    try body(batch, iteration)
+                }
+                #endif
             } // End of batches
         }
     }
@@ -121,7 +127,7 @@ open class StressTestCase: GroupTestCase {
     }
 
     open func ended(batch: BatchProtocol) {
-        let now = CFAbsoluteTimeGetCurrent()
+        let now = Date().timeIntervalSince1970
         let duration = now - batch.startTime
         print("    finished batch: \(batch.number), in \(duration) seconds")
     }
@@ -154,6 +160,7 @@ open class StressTestCase: GroupTestCase {
 
         (0..<level.batches).forEach { batchCount in
             guard shouldContinueBatches else { return }
+            #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
             autoreleasepool {
 
                 let batch = started(batch: batchCount, size: level.batchSize)
@@ -177,6 +184,27 @@ open class StressTestCase: GroupTestCase {
                 ended(batch: batch)
 
             } // End of autorelease
+            #else
+            let batch = started(batch: batchCount, size: level.batchSize)
+            weak var batchExpectation = expectation(description: stressTestName)
+
+            (0..<level.batchSize).forEach { iteration in
+                block(batch, iteration)
+            }
+
+            batch.dispatchGroup.notify(queue: .main) {
+                guard let expect = batchExpectation else { print("\(stressTestName): Completed after timeout"); return }
+                expect.fulfill()
+            }
+
+            waitForExpectations(timeout: timeout) { error in
+                if error != nil {
+                    shouldContinueBatches = false
+                }
+            }
+
+            ended(batch: batch)
+            #endif
         } // End of batches
     }
 }

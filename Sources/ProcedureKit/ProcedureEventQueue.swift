@@ -80,9 +80,13 @@ public class EventQueue {
     public func dispatchNotify(withGroup group: DispatchGroup, block: @escaping () -> Void) {
         group.notify(queue: queue, execute: {
             self.eventQueueLock.withCriticalScope {
+                #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
                 autoreleasepool {
                     block()
                 }
+                #else
+                block()
+                #endif
             }
         })
     }
@@ -111,9 +115,13 @@ internal extension EventQueue {
 
         let workItem = DispatchWorkItem(qos: resultingQoS, flags: [DispatchWorkItemFlags.enforceQoS]) {
             self.eventQueueLock.withCriticalScope {
+                #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
                 autoreleasepool {
                     block()
                 }
+                #else
+                block()
+                #endif
             }
         }
         queue.async(execute: workItem)
@@ -125,9 +133,13 @@ internal extension EventQueue {
 
         group.notify(qos: resultingQoS, flags: [DispatchWorkItemFlags.enforceQoS], queue: queue, execute: {
             self.eventQueueLock.withCriticalScope {
+                #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
                 autoreleasepool {
                     block()
                 }
+                #else
+                block()
+                #endif
             }
         })
     }
@@ -271,22 +283,6 @@ extension DispatchQueue: DispatchQueueProtocol {
         setSpecific(key: key, value: value)
     }
     #endif
-}
-
-// Swift 3.x
-fileprivate extension DispatchQueue {
-    // Swift 3.x (Xcode 8.x) is missing the ability to clear specific keys from DispatchQueues
-    // via DispatchQueue.setSpecific(key:value:) because it does not take an optional.
-    //
-    // A fix was merged into apple/swift in: https://github.com/apple/swift/commit/5accebf556f40ea104a7440ff0353f9e4f7f1ac2
-    // And is available in Swift 4+.
-    //
-    // For compatibility with Xcode < 9 and Swift 3, this custom clearSpecific(key:)
-    // function is provided.
-    func pk_clearSpecific<T>(key: DispatchSpecificKey<T>) {
-        let k = Unmanaged.passUnretained(key).toOpaque()
-        __dispatch_queue_set_specific(self, k, nil, nil)
-    }
 }
 
 extension EventQueue: DispatchQueueProtocol {

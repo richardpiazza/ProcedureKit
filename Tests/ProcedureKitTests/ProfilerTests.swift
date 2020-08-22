@@ -46,7 +46,7 @@ class ProfilerTests: ProcedureKitTestCase {
 
     override func setUp() {
         super.setUp()
-        now = CFAbsoluteTimeGetCurrent() as TimeInterval
+        now = Date().timeIntervalSince1970
         reporter = TestableProfileReporter()
         profiler = ProcedureProfiler(reporter)
     }

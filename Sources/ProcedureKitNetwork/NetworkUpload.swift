@@ -6,6 +6,9 @@
 
 import ProcedureKit
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 /**
  NetworkUploadProcedure is a simple procedure which will perform a upload task using

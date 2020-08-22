@@ -400,12 +400,6 @@ public struct CountingIterator<Element>: IteratorProtocol {
     }
 }
 
-public func arc4random<T: ExpressibleByIntegerLiteral>(_ type: T.Type) -> T {
-    var r: T = 0
-    arc4random_buf(&r, Int(MemoryLayout<T>.size))
-    return r
-}
-
 public struct RandomFailIterator<Element>: IteratorProtocol {
 
     private var iterator: AnyIterator<Element>
@@ -416,7 +410,8 @@ public struct RandomFailIterator<Element>: IteratorProtocol {
     public init<I: IteratorProtocol>(_ iterator: I, probability prob: Double = 0.1) where I.Element == Element {
         self.iterator = AnyIterator(iterator)
         self.shouldNotFail = {
-            let r = (Double(arc4random(UInt64.self)) / Double(UInt64.max))
+            let random = UInt64.random(in: 1...UInt64.max)
+            let r = (Double(random) / Double(UInt64.max))
             return r > prob
         }
         self.probability = prob
@@ -498,7 +493,8 @@ public struct IntervalIterator {
 
     public static func random(withMinimum min: TimeInterval = 0.0, andMaximum max: TimeInterval = 10.0) -> AnyIterator<TimeInterval> {
         return AnyIterator {
-            let r = (Double(arc4random(UInt64.self)) / Double(UInt64.max))
+            let random = UInt64.random(in: 1...UInt64.max)
+            let r = (Double(random) / Double(UInt64.max))
             return (r * (max - min)) + min
         }
     }

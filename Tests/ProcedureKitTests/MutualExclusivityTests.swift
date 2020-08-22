@@ -216,7 +216,7 @@ class MutualExclusiveConcurrencyTests: ConcurrencyTestCase {
             return $0
         }
 
-        let startTime = CFAbsoluteTimeGetCurrent()
+        let startTime = Date().timeIntervalSince1970
 
         // add procedures to the queue simultaneously
         let dispatchQueue = DispatchQueue.global(qos: .userInitiated)
@@ -229,7 +229,7 @@ class MutualExclusiveConcurrencyTests: ConcurrencyTestCase {
 
         waitForExpectations(timeout: TimeInterval(numOperations), handler: nil)
 
-        let endTime = CFAbsoluteTimeGetCurrent()
+        let endTime = Date().timeIntervalSince1970
         let duration = Double(endTime) - Double(startTime)
 
         XCTAssertResults(TestResult(procedures: procedures, duration: duration, registrar: registrar),
@@ -302,6 +302,7 @@ class MutualExclusiveConcurrencyTests: ConcurrencyTestCase {
             }
         }
 
+        #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
         autoreleasepool {
 
             var queue: ProcedureQueue? = ProcedureQueue()
@@ -324,6 +325,26 @@ class MutualExclusiveConcurrencyTests: ConcurrencyTestCase {
             queue = nil
 
         }
+        #else
+        var queue: ProcedureQueue? = ProcedureQueue()
+
+        procedure1.addCondition(MutuallyExclusive<TestProcedure>())
+
+        let expProcedureWasStarted = expectation(description: "Procedure was started - execute was called")
+        procedure1.addDidExecuteBlockObserver(synchronizedWith: DispatchQueue.main) { _ in
+            // the Procedure has been started
+            expProcedureWasStarted.fulfill()
+        }
+
+        queue!.addOperation(procedure1)
+        waitForExpectations(timeout: 3) // wait for the Procedure to be started by the queue
+
+        // store a weak reference to the ProcedureQueue
+        weakQueue = queue
+
+        // get rid of our strong reference to the ProcedureQueue
+        queue = nil
+        #endif
 
         // verify that the weak reference to the ProcedureQueue still exists
         guard let _ = weakQueue else {

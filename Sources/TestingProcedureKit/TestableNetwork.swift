@@ -6,6 +6,9 @@
 
 import ProcedureKit
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 import XCTest
 
 public class TestableURLSessionTask: Equatable {
@@ -172,7 +175,7 @@ public class TestableURLSessionTaskFactory {
 
     // Private (protected) Properties
     private var _delay: TimeInterval = 0
-    private var _returnedResponse: HTTPURLResponse? = HTTPURLResponse()
+    private var _returnedResponse: HTTPURLResponse?
     private var _returnedError: Error?
 
     private var _didReceiveDataRequest: URLRequest?
@@ -187,7 +190,10 @@ public class TestableURLSessionTaskFactory {
     private var _didReturnUploadTask: TestableURLSessionTask?
 
     // Initializers
-    public init() { }
+    public init() {
+        let url = URL(string: "https://www.google.com")!
+        _returnedResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+    }
 
     public func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> TestableURLSessionTask {
         didReceiveDataRequest = request

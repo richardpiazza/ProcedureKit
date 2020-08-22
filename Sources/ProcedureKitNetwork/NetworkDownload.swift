@@ -6,6 +6,9 @@
 
 import ProcedureKit
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 /**
  NetworkDownloadProcedure is a simple procedure which will perform a download task using

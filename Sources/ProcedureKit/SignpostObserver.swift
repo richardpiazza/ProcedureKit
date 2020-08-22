@@ -7,9 +7,11 @@
 import Foundation
 #if canImport(os)
 import os
+#endif
 
 public final class SignpostObserver<Procedure: ProcedureProtocol> {
-
+    
+    #if canImport(os)
     public let log: OSLog
 
     public init(log: OSLog) {
@@ -23,17 +25,20 @@ public final class SignpostObserver<Procedure: ProcedureProtocol> {
     private func signpostID(for procedure: Procedure) -> OSSignpostID {
         return OSSignpostID(log: log, object: procedure)
     }
+    #endif
 }
 
 extension SignpostObserver: ProcedureObserver {
 
     public func will(execute procedure: Procedure, pendingExecute: PendingExecuteEvent) {
+        #if canImport(os)
         os_signpost(.begin, log: log, name: "Executing", signpostID: signpostID(for: procedure), "Procedure name: %{public}s", procedure.procedureName)
+        #endif
     }
 
     public func did(finish procedure: Procedure, withErrors errors: [Error]) {
+        #if canImport(os)
         os_signpost(.end, log: log, name: "Execution", signpostID: signpostID(for: procedure), "Procedure name: %{public}s, status: %{public}s", procedure.procedureName, procedure.status.rawValue)
+        #endif
     }
 }
-
-#endif

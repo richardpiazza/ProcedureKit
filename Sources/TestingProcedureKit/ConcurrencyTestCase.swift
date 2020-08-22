@@ -81,11 +81,11 @@ open class ConcurrencyTestCase: ProcedureKitTestCase {
             return configure($0)
         }
 
-        let startTime = CFAbsoluteTimeGetCurrent()
+        let startTime = Date().timeIntervalSince1970
         wait(forAll: procedures, withTimeout: timeout)
-        let endTime = CFAbsoluteTimeGetCurrent()
+        let endTime = Date().timeIntervalSince1970
         let duration = Double(endTime) - Double(startTime)
-
+        
         completion(TestResult(procedures: procedures, duration: duration, registrar: registrar))
     }
 

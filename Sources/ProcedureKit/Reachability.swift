@@ -4,10 +4,9 @@
 //  Copyright © 2015-2018 ProcedureKit. All rights reserved.
 //
 
-#if !os(watchOS)
-
 import Foundation
 import Dispatch
+#if canImport(SystemConfiguration) && !os(watchOS)
 import SystemConfiguration
 
 // MARK: - Public APIs

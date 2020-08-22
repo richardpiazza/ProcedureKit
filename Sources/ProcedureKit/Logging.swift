@@ -228,7 +228,9 @@ public extension LogChannel {
     func trace(_ file: String = #file, function: String = #function, line: Int = #line) {
         guard shouldWrite(severity: severity) else { return }
         var threadID: UInt64 = 0
+        #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
         pthread_threadid_np(nil, &threadID)
+        #endif
         let entry = Log.Entry(payload: .trace, severity: severity, file: file, function: function, line: line, threadID: threadID)
         write(entry: entry)
     }
@@ -236,7 +238,9 @@ public extension LogChannel {
     func message(_ msg: @autoclosure () -> String, file: String = #file, function: String = #function, line: Int = #line) {
         guard shouldWrite(severity: severity) else { return }
         var threadID: UInt64 = 0
+        #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
         pthread_threadid_np(nil, &threadID)
+        #endif
         let entry = Log.Entry(payload: .message(msg()), severity: severity, file: file, function: function, line: line, threadID: threadID)
         write(entry: entry)
     }
@@ -244,7 +248,9 @@ public extension LogChannel {
     func value(_ value: @autoclosure () -> Any?, file: String = #file, function: String = #function, line: Int = #line) {
         guard shouldWrite(severity: severity) else { return }
         var threadID: UInt64 = 0
+        #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
         pthread_threadid_np(nil, &threadID)
+        #endif
         let entry = Log.Entry(payload: .value(value()), severity: severity, file: file, function: function, line: line, threadID: threadID)
         write(entry: entry)
     }

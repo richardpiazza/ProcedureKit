@@ -437,6 +437,39 @@ open class Procedure: Operation, ProcedureProtocol {
 
     // MARK: - Dependencies & Conditions
 
+    /**
+     Add another `Operation` as a dependency. It is a programmatic error to call
+     this method after the receiver has already started executing. Therefore, best
+     practice is to add dependencies before adding them to operation queues.
+
+     - requires: self must not have started yet. i.e. either hasn't been added
+     to a queue, or is waiting on dependencies.
+     - parameter operation: a `Operation` instance.
+     */
+    public final override func addDependency(_ operation: Operation) {
+        precondition(state < .started, "Dependencies cannot be modified after a Procedure has started, current state: \(state).")
+        addDirectDependency(operation)
+    }
+
+    /**
+     Remove another `Operation` as a dependency. It is a programmatic error to call
+     this method after the receiver has already started executing. Therefore, best
+     practice is to manage dependencies before adding them to operation
+     queues.
+
+     - requires: self must not have started yet. i.e. either hasn't been added
+     to a queue, or is waiting on dependencies.
+     - parameter operation: a `Operation` instance.
+     */
+    public final override func removeDependency(_ operation: Operation) {
+        precondition(state < .started, "Dependencies cannot be modified after a Procedure has started, current state: \(state).")
+        removeDirectDependency(operation)
+    }
+    
+    public final override var dependencies: [Operation] {
+        return Array(directDependencies)
+    }
+    
     internal var directDependencies: Set<Operation> {
         get { return synchronise { protectedProperties.directDependencies } }
     }
@@ -1659,7 +1692,7 @@ extension Procedure {
             isFinished = true
         }
     }
-
+    
     func addDirectDependency(_ directDependency: Operation) {
         precondition(state < .started, "Dependencies cannot be modified after a Procedure has started, current state: \(state).")
         stateLock.withCriticalScope { () -> Void in
@@ -1683,39 +1716,6 @@ extension Procedure {
             _evaluateConditionsProcedure?.removeDependency(directDependency)
         }
         super.removeDependency(directDependency)
-    }
-
-    public final override var dependencies: [Operation] {
-        return Array(directDependencies)
-    }
-
-    /**
-     Add another `Operation` as a dependency. It is a programmatic error to call
-     this method after the receiver has already started executing. Therefore, best
-     practice is to add dependencies before adding them to operation queues.
-
-     - requires: self must not have started yet. i.e. either hasn't been added
-     to a queue, or is waiting on dependencies.
-     - parameter operation: a `Operation` instance.
-     */
-    public final override func addDependency(_ operation: Operation) {
-        precondition(state < .started, "Dependencies cannot be modified after a Procedure has started, current state: \(state).")
-        addDirectDependency(operation)
-    }
-
-    /**
-     Remove another `Operation` as a dependency. It is a programmatic error to call
-     this method after the receiver has already started executing. Therefore, best
-     practice is to manage dependencies before adding them to operation
-     queues.
-
-     - requires: self must not have started yet. i.e. either hasn't been added
-     to a queue, or is waiting on dependencies.
-     - parameter operation: a `Operation` instance.
-     */
-    public final override func removeDependency(_ operation: Operation) {
-        precondition(state < .started, "Dependencies cannot be modified after a Procedure has started, current state: \(state).")
-        removeDirectDependency(operation)
     }
 
     /**

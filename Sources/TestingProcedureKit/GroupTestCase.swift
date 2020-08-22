@@ -129,9 +129,9 @@ open class GroupConcurrencyTestCase: ConcurrencyTestCase {
 
         configure(group)
 
-        let startTime = CFAbsoluteTimeGetCurrent()
+        let startTime = Date().timeIntervalSince1970
         wait(for: group, withTimeout: timeout)
-        let endTime = CFAbsoluteTimeGetCurrent()
+        let endTime = Date().timeIntervalSince1970
         let duration = Double(endTime) - Double(startTime)
 
         let result = GroupTestResult(group: group, procedures: testProcedures, duration: duration, registrar: registrar)
