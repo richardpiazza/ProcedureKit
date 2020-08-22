@@ -51,7 +51,11 @@ public extension DispatchQueue {
     }
 
     static var currentQoSClass: DispatchQoS.QoSClass {
+        #if os(macOS) || os(iOS) || os(tvOS) || os(macOS)
         return DispatchQoS.QoSClass(rawValue: qos_class_self()) ?? .unspecified
+        #else
+        return .unspecified
+        #endif
     }
 }
 
