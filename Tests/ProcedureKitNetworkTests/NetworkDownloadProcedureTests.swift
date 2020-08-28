@@ -5,7 +5,7 @@
 //
 import XCTest
 import ProcedureKit
-import TestingProcedureKit
+import ProcedureKitTesting
 @testable import ProcedureKitNetwork
 #if canImport(FoundationNetworking)
 import FoundationNetworking

@@ -19,7 +19,7 @@ let package = Package(
         .library(name: "ProcedureKitMac", targets: ["ProcedureKitMac"]),
         .library(name: "ProcedureKitMobile", targets: ["ProcedureKitMobile"]),
         .library(name: "ProcedureKitNetwork", targets: ["ProcedureKitNetwork"]),
-        .library(name: "TestingProcedureKit", targets: ["TestingProcedureKit"])
+        .library(name: "ProcedureKitTesting", targets: ["ProcedureKitTesting"]),
     ],
     dependencies: [
     ],
@@ -31,15 +31,15 @@ let package = Package(
         .target(name: "ProcedureKitMac", dependencies: ["ProcedureKit"]),
         .target(name: "ProcedureKitMobile", dependencies: ["ProcedureKit"]),
         .target(name: "ProcedureKitNetwork", dependencies: ["ProcedureKit"]),
-        .target(name: "TestingProcedureKit", dependencies: ["ProcedureKit"]),
-        .testTarget(name: "ProcedureKitTests", dependencies: ["ProcedureKit", "TestingProcedureKit"]),
-        .testTarget(name: "ProcedureKitStressTests", dependencies: ["ProcedureKit", "TestingProcedureKit"]),
-        .testTarget(name: "ProcedureKitCloudTests", dependencies: ["ProcedureKitCloud", "TestingProcedureKit"]),
-        .testTarget(name: "ProcedureKitCoreDataTests", dependencies: ["ProcedureKitCoreData", "TestingProcedureKit"]),
-        .testTarget(name: "ProcedureKitLocationTests", dependencies: ["ProcedureKitLocation", "TestingProcedureKit"]),
-        .testTarget(name: "ProcedureKitMacTests", dependencies: ["ProcedureKitMac", "TestingProcedureKit"]),
-        .testTarget(name: "ProcedureKitMobileTests", dependencies: ["ProcedureKitMobile", "TestingProcedureKit"]),
-        .testTarget(name: "ProcedureKitNetworkTests", dependencies: ["ProcedureKitNetwork", "TestingProcedureKit"]),
+        .target(name: "ProcedureKitTesting", dependencies: ["ProcedureKit"], path: "Tests/ProcedureKitTesting"),
+        .testTarget(name: "ProcedureKitTests", dependencies: ["ProcedureKit", "ProcedureKitTesting"]),
+        .testTarget(name: "ProcedureKitStressTests", dependencies: ["ProcedureKit", "ProcedureKitTesting"]),
+        .testTarget(name: "ProcedureKitCloudTests", dependencies: ["ProcedureKitCloud", "ProcedureKitTesting"]),
+        .testTarget(name: "ProcedureKitCoreDataTests", dependencies: ["ProcedureKitCoreData", "ProcedureKitTesting"]),
+        .testTarget(name: "ProcedureKitLocationTests", dependencies: ["ProcedureKitLocation", "ProcedureKitTesting"]),
+        .testTarget(name: "ProcedureKitMacTests", dependencies: ["ProcedureKitMac", "ProcedureKitTesting"]),
+        .testTarget(name: "ProcedureKitMobileTests", dependencies: ["ProcedureKitMobile", "ProcedureKitTesting"]),
+        .testTarget(name: "ProcedureKitNetworkTests", dependencies: ["ProcedureKitNetwork", "ProcedureKitTesting"]),
     ],
     swiftLanguageVersions: [.v5]
 )

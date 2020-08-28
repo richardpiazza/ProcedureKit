@@ -596,7 +596,7 @@ Well, it’s time to say goodbye to _Operations_ and hello to _ProcedureKit_. _P
     In addition to types which should be used in applications, I wanted to expose types to aid writing unit tests. This is called `TestingProcedureKit`, which itself links against `XCTest`. *It can only be used inside test bundle targets*. This framework includes `ProcedureKitTestCase` and `StressTestCase` which are suitable for subclassing. The former then exposes simple APIs to wait for procedures to run using `XCTestExpectation`. Additionally, there are `XCTAssertProcedure*` style macros which can assert that a `Procedure` ran as expected. To use it in your own application’s unit test target:
     ```swift
     import ProcedureKit
-    import TestingProcedureKit
+    import ProcedureKitTesting
     @testable import MyApplication
     ```    
 4. Beta 1 Functionality

@@ -6,7 +6,7 @@
 
 import XCTest
 @testable import ProcedureKit
-import TestingProcedureKit
+import ProcedureKitTesting
 
 class LogEntryTests: LoggingTestCase {
 

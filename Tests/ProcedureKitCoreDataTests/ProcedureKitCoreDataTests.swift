@@ -6,7 +6,7 @@
 
 import XCTest
 import ProcedureKit
-import TestingProcedureKit
+import ProcedureKitTesting
 @testable import ProcedureKitCoreData
 #if canImport(CoreData)
 import CoreData

@@ -6,7 +6,7 @@
 
 import XCTest
 import ProcedureKit
-import TestingProcedureKit
+import ProcedureKitTesting
 @testable import ProcedureKitTV
 
 class TestSuiteRuns: XCTestCase {

@@ -6,7 +6,7 @@
 
 import XCTest
 import ProcedureKit
-import TestingProcedureKit
+import ProcedureKitTesting
 @testable import ProcedureKitLocation
 #if canImport(CoreLocation) && canImport(MapKit)
 import CoreLocation

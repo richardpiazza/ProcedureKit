@@ -5,7 +5,7 @@
 //
 
 import XCTest
-@testable import TestingProcedureKit
+@testable import ProcedureKitTesting
 @testable import ProcedureKit
 
 class ConditionTests: ProcedureKitTestCase {

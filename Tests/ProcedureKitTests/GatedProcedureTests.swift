@@ -5,7 +5,7 @@
 //
 
 import XCTest
-import TestingProcedureKit
+import ProcedureKitTesting
 @testable import ProcedureKit
 
 public class GatedProcedureTests: ProcedureKitTestCase {
